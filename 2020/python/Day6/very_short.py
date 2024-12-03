@@ -1,0 +1,1 @@
+f=open('i','r');gs=[[p for p in g.split('\n')]for g in f.read().split('\n\n')];print(sum([len(set(''.join(g)))for g in gs]),sum([len([l for l in set(''.join(g))if all([l in p for p in g])])for g in gs]),sep='\n')

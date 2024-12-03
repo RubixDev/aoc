@@ -1,0 +1,1 @@
+with open('input.txt', 'r') as input_file: groups = [[person for person in group.split('\n')] for group in input_file.read().split('\n\n')]; print(sum([len(set(''.join(group))) for group in groups]), sum([len([i for i in set(''.join(group)) if all([i in n for n in group])]) for group in groups]), sep='\n')
