@@ -13,6 +13,7 @@ for index, num in enumerate(xmas_data[25:]):
             ] for e in s]
     )]):
         print(num)
+        break
 
 all_sums = set(
     [
@@ -26,4 +27,4 @@ all_sums = set(
         ] for e in s
     ]
 )
-print([i for i in all_sums if i in num])
+print([i for i in all_sums if num in i])
