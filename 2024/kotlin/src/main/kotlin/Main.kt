@@ -5,4 +5,5 @@ fun main() {
     runDay2()
     runDay3()
     runDay5()
+    runDay6()
 }
