@@ -3,9 +3,6 @@ package de.rubixdev
 import java.io.File
 import kotlin.math.abs
 
-private fun <A, B> Pair<A, A>.map(mapper: (A) -> B): Pair<B, B> =
-    mapper(first) to mapper(second)
-
 fun runDay1() {
     val input = File("inputs/day1.txt").readLines()
         .map { line -> line.split("   ").map(String::toInt).let { it[0] to it[1] } }

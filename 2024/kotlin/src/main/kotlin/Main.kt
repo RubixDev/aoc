@@ -7,4 +7,5 @@ fun main() {
     runDay5()
     runDay6()
     runDay7()
+    runDay8()
 }

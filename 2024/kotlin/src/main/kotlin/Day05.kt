@@ -5,7 +5,7 @@ import java.io.File
 fun runDay5() {
     val (rawRules, rawUpdates) = File("inputs/day5.txt").readText().split("\n\n")
     val rules = rawRules.split("\n").map { line ->
-        line.split("|").map { it.toInt() }.let { it[0] to it[1] }
+        line.split("|").map { it.toInt() }.toPair()
     }
     val updates = rawUpdates.split("\n").filter { it.isNotBlank() }
         .map { line -> line.split(",").map { it.toInt() } }

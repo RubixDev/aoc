@@ -2,34 +2,10 @@ package de.rubixdev
 
 import java.io.File
 
-private typealias Pos = Pair<Int, Int>
-
 private data class Guard(
-    var pos: Pos,
+    var pos: Vec2d,
     var facing: Direction,
 )
-
-private enum class Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    ;
-
-    fun rotateRight() = when (this) {
-        UP -> RIGHT
-        DOWN -> LEFT
-        LEFT -> UP
-        RIGHT -> DOWN
-    }
-
-    fun move(pos: Pos) = when (this) {
-        UP -> pos.first to pos.second - 1
-        DOWN -> pos.first to pos.second + 1
-        LEFT -> pos.first - 1 to pos.second
-        RIGHT -> pos.first + 1 to pos.second
-    }
-}
 
 private enum class TileState {
     FREE,
@@ -40,7 +16,7 @@ private enum class TileState {
 fun runDay6() {
     val guard = Guard(
         facing = Direction.UP,
-        pos = -1 to -1,
+        pos = -1 by -1,
     )
     val map = File("inputs/day6.txt").readLines()
         .withIndex()
@@ -50,7 +26,7 @@ fun runDay6() {
                     '.' -> TileState.FREE
                     '#' -> TileState.OBSTACLE
                     '^' -> {
-                        guard.pos = x to y
+                        guard.pos = x by y
                         TileState.VISITED
                     }
 
@@ -63,20 +39,10 @@ fun runDay6() {
     println("Part 2: ${part2(map, guard)}")
 }
 
-private fun Pos.isInMap(map: List<List<TileState>>) =
-    first in map.first().indices && second in map.indices
-
-private operator fun <T> List<List<T>>.get(index: Pos) =
-    this[index.second][index.first]
-
-private operator fun <T> List<MutableList<T>>.set(index: Pos, value: T) {
-    this[index.second][index.first] = value
-}
-
 private fun part1(map: List<MutableList<TileState>>, guard: Guard): Int {
     while (true) {
         val nextPos = guard.facing.move(guard.pos)
-        if (!nextPos.isInMap(map)) {
+        if (!nextPos.isInBounds(map)) {
             map[guard.pos] = TileState.VISITED
             break
         }
@@ -93,7 +59,7 @@ private fun part1(map: List<MutableList<TileState>>, guard: Guard): Int {
 
 private fun part2(map: List<MutableList<TileState>>, guard: Guard): Int {
     var count = 0
-    for (pos in map.first().indices.flatMap { x -> map.indices.map { y -> x to y } }.filter { it != guard.pos }) {
+    for (pos in map.first().indices.flatMap { x -> map.indices.map { y -> x by y } }.filter { it != guard.pos }) {
         val visited = mutableSetOf<Guard>()
         val modifiedMap = map.map { it.toMutableList() }.also { it[pos] = TileState.OBSTACLE }
         val guardClone = guard.copy()
@@ -103,7 +69,7 @@ private fun part2(map: List<MutableList<TileState>>, guard: Guard): Int {
                 break
             }
             val nextPos = guardClone.facing.move(guardClone.pos)
-            if (!nextPos.isInMap(modifiedMap)) break
+            if (!nextPos.isInBounds(modifiedMap)) break
             if (modifiedMap[nextPos] == TileState.OBSTACLE) {
                 guardClone.facing = guardClone.facing.rotateRight()
                 continue
