@@ -25,8 +25,8 @@ fun runDay8() {
                 char to (x by y)
             }
         }
+        .filter { it.first != '.' }
         .groupBy { it.first }
-        .filterKeys { it != '.' }
         .values
         .map { l -> l.map { it.second } }
     println("--- Day 8 ---")
@@ -34,12 +34,12 @@ fun runDay8() {
     println("Part 2: ${part2(input, bounds)}")
 }
 
-private fun part1(input: List<List<Vec2d>>, bounds: Collection<Collection<*>>): Int {
+private fun part1(input: List<List<Vec2D>>, bounds: Collection<Collection<*>>): Int {
     return input.flatMap { positions ->
         positions.withIndex().flatMap { (i, a) ->
             positions.drop(i + 1).flatMap { b ->
                 val diff = a - b
-                mutableListOf<Vec2d>().apply {
+                mutableListOf<Vec2D>().apply {
                     (a + diff).let { if (it.isInBounds(bounds)) add(it) }
                     (b - diff).let { if (it.isInBounds(bounds)) add(it) }
                 }
@@ -48,20 +48,20 @@ private fun part1(input: List<List<Vec2d>>, bounds: Collection<Collection<*>>): 
     }.distinct().size
 }
 
-private fun part2(input: List<List<Vec2d>>, bounds: Collection<Collection<*>>): Int {
+private fun part2(input: List<List<Vec2D>>, bounds: Collection<Collection<*>>): Int {
     return input.flatMap { positions ->
         positions.withIndex().flatMap { (i, a) ->
             positions.drop(i + 1).flatMap { b ->
                 val diff = (a - b).reduce()
-                mutableListOf<Vec2d>().apply {
-                    var search = a.copy()
+                mutableListOf<Vec2D>().apply {
+                    var search = a
                     while (search.isInBounds(bounds)) {
-                        add(search.copy())
+                        add(search)
                         search += diff
                     }
-                    search = a.copy() - diff
+                    search = a - diff
                     while (search.isInBounds(bounds)) {
-                        add(search.copy())
+                        add(search)
                         search -= diff
                     }
                 }

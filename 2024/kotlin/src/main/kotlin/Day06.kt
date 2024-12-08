@@ -3,7 +3,7 @@ package de.rubixdev
 import java.io.File
 
 private data class Guard(
-    var pos: Vec2d,
+    var pos: Vec2D,
     var facing: Direction,
 )
 
