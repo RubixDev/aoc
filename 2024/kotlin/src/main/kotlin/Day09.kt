@@ -14,7 +14,7 @@ fun runDay9() {
 }
 
 private fun part1(input: List<Int>): Long {
-    val disk = input.chunked(2).flatMapIndexed { id, chunk ->
+    val disk = input.asSequence().chunked(2).flatMapIndexed { id, chunk ->
         (1..chunk[0]).map { id } + when (val emptySpace = chunk.getOrNull(1)) {
             null -> listOf()
             else -> (1..emptySpace).map { -1 }
@@ -36,7 +36,7 @@ private fun part2(input: List<Int>): Long {
     for ((fileSize, fileId) in disk.reversed().filter { it.second != -1 }) {
         disk.indexOfFirst { it.second == -1 && it.first >= fileSize }.let { idx ->
             if (idx >= 0 && idx < disk.indexOf(fileSize to fileId)) {
-                disk[idx] = disk[idx].first - fileSize to disk[idx].second
+                disk[idx] = disk[idx].run { copy(first = first - fileSize) }
                 disk.indexOf(fileSize to fileId).let { oldIdx ->
                     disk[oldIdx] = fileSize to -1
                 }
@@ -44,11 +44,7 @@ private fun part2(input: List<Int>): Long {
             }
         }
     }
-    var idx = -1
-    return disk.sumOf { (size, id) ->
-        (1..size).sumOf {
-            idx++
-            idx * id.coerceAtLeast(0).toLong()
-        }
-    }
+    return disk.asSequence().flatMap { (size, id) -> (1..size).asSequence().map { id } }
+        .withIndex()
+        .sumOf { (idx, id) -> idx * id.coerceAtLeast(0).toLong() }
 }
