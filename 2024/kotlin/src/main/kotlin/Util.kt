@@ -14,14 +14,14 @@ fun <T> List<T>.toPair(): Pair<T, T> =
 fun <T> List<T>.toTriple(): Triple<T, T, T> =
     Triple(this[0], this[1], this[2])
 
-data class Vec2D(
+data class Vec2(
     val x: Int,
     val y: Int,
 ) {
-    operator fun plus(other: Vec2D) =
+    operator fun plus(other: Vec2) =
         x + other.x by y + other.y
 
-    operator fun minus(other: Vec2D) =
+    operator fun minus(other: Vec2) =
         x - other.x by y - other.y
 
     operator fun times(scalar: Int) =
@@ -35,7 +35,7 @@ data class Vec2D(
 
 tailrec fun gcd(a: Int, b: Int): Int = if (b == 0) abs(a) else gcd(b, a % b)
 
-infix fun Int.by(y: Int): Vec2D = Vec2D(this, y)
+infix fun Int.by(y: Int): Vec2 = Vec2(this, y)
 
 enum class Direction {
     UP,
@@ -51,18 +51,18 @@ enum class Direction {
         RIGHT -> DOWN
     }
 
-    fun move(vec2d: Vec2D) = when (this) {
-        UP -> vec2d.x by vec2d.y - 1
-        DOWN -> vec2d.x by vec2d.y + 1
-        LEFT -> vec2d.x - 1 by vec2d.y
-        RIGHT -> vec2d.x + 1 by vec2d.y
+    fun move(vec2: Vec2) = when (this) {
+        UP -> vec2.x by vec2.y - 1
+        DOWN -> vec2.x by vec2.y + 1
+        LEFT -> vec2.x - 1 by vec2.y
+        RIGHT -> vec2.x + 1 by vec2.y
     }
 }
 
-operator fun <T> List<List<T>>.get(index: Vec2D) =
+operator fun <T> List<List<T>>.get(index: Vec2) =
     this[index.y][index.x]
 
-operator fun <T> List<MutableList<T>>.set(index: Vec2D, value: T) {
+operator fun <T> List<MutableList<T>>.set(index: Vec2, value: T) {
     this[index.y][index.x] = value
 }
 

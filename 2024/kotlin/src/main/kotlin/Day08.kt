@@ -34,12 +34,12 @@ fun runDay8() {
     println("Part 2: ${part2(input, bounds)}")
 }
 
-private fun part1(input: List<List<Vec2D>>, bounds: Collection<Collection<*>>): Int {
+private fun part1(input: List<List<Vec2>>, bounds: Collection<Collection<*>>): Int {
     return input.flatMap { positions ->
         positions.withIndex().flatMap { (i, a) ->
             positions.drop(i + 1).flatMap { b ->
                 val diff = a - b
-                mutableListOf<Vec2D>().apply {
+                mutableListOf<Vec2>().apply {
                     (a + diff).let { if (it.isInBounds(bounds)) add(it) }
                     (b - diff).let { if (it.isInBounds(bounds)) add(it) }
                 }
@@ -48,12 +48,12 @@ private fun part1(input: List<List<Vec2D>>, bounds: Collection<Collection<*>>): 
     }.distinct().size
 }
 
-private fun part2(input: List<List<Vec2D>>, bounds: Collection<Collection<*>>): Int {
+private fun part2(input: List<List<Vec2>>, bounds: Collection<Collection<*>>): Int {
     return input.flatMap { positions ->
         positions.withIndex().flatMap { (i, a) ->
             positions.drop(i + 1).flatMap { b ->
                 val diff = (a - b).reduce()
-                mutableListOf<Vec2D>().apply {
+                mutableListOf<Vec2>().apply {
                     var search = a
                     while (search.isInBounds(bounds)) {
                         add(search)
