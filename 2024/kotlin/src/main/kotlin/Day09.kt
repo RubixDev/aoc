@@ -20,8 +20,10 @@ private fun part1(input: List<Int>): Long {
             else -> (1..emptySpace).map { -1 }
         }
     }.toMutableList()
-    while (-1 in disk) {
-        disk[disk.indexOf(-1)] = disk.removeLast()
+    while (true) {
+        val idx = disk.indexOf(-1)
+        if (idx < 0) break
+        disk[idx] = disk.removeLast()
     }
     return disk.withIndex().sumOf { (idx, id) -> idx * id.toLong() }
 }
