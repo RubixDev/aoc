@@ -6,7 +6,6 @@ fun runDay9() {
     val example = "2333133121414131402"
 //    val input = example
     val input = File("inputs/day9.txt").readText().trim()
-        .toList()
         .map { it.digitToInt() }
     println("--- Day 9 ---")
     println("Part 1: ${part1(input)}")
