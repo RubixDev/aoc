@@ -44,6 +44,20 @@ enum class Direction {
     RIGHT,
     ;
 
+    val vec get() = when (this) {
+        UP -> 0 by -1
+        DOWN -> 0 by 1
+        LEFT -> -1 by 0
+        RIGHT -> 1 by 0
+    }
+
+    fun rotateLeft() = when (this) {
+        UP -> LEFT
+        DOWN -> RIGHT
+        LEFT -> DOWN
+        RIGHT -> UP
+    }
+
     fun rotateRight() = when (this) {
         UP -> RIGHT
         DOWN -> LEFT
@@ -51,12 +65,7 @@ enum class Direction {
         RIGHT -> DOWN
     }
 
-    fun move(vec2: Vec2) = when (this) {
-        UP -> vec2.x by vec2.y - 1
-        DOWN -> vec2.x by vec2.y + 1
-        LEFT -> vec2.x - 1 by vec2.y
-        RIGHT -> vec2.x + 1 by vec2.y
-    }
+    fun move(vec2: Vec2) = vec + vec2
 }
 
 operator fun <T> List<List<T>>.get(index: Vec2) =
