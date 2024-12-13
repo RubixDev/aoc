@@ -15,17 +15,15 @@ fun <T> List<T>.toTriple(): Triple<T, T, T> =
     Triple(this[0], this[1], this[2])
 
 data class Vec2(
-    val x: Int,
-    val y: Int,
+    val x: Long,
+    val y: Long,
 ) {
-    operator fun plus(other: Vec2) =
-        x + other.x by y + other.y
-
-    operator fun minus(other: Vec2) =
-        x - other.x by y - other.y
-
-    operator fun times(scalar: Int) =
-        x * scalar by y * scalar
+    operator fun plus(other: Vec2) = x + other.x by y + other.y
+    operator fun minus(other: Vec2) = x - other.x by y - other.y
+    operator fun times(scalar: Long) = x * scalar by y * scalar
+    operator fun times(scalar: Int) = x * scalar by y * scalar
+    operator fun div(scalar: Long) = x / scalar by y / scalar
+    operator fun div(scalar: Int) = x / scalar by y / scalar
 
     fun isInBounds(map: Collection<Collection<*>>) =
         x in map.first().indices && y in map.indices
@@ -33,9 +31,14 @@ data class Vec2(
     fun reduce() = gcd(x, y).let { (x / it) by (y / it) }
 }
 
-tailrec fun gcd(a: Int, b: Int): Int = if (b == 0) abs(a) else gcd(b, a % b)
+operator fun Long.times(vec: Vec2) = vec * this
+operator fun Int.times(vec: Vec2) = vec * this
 
-infix fun Int.by(y: Int): Vec2 = Vec2(this, y)
+tailrec fun gcd(a: Long, b: Long): Long = if (b == 0L) abs(a) else gcd(b, a % b)
+
+infix fun Int.by(y: Int): Vec2 = Vec2(this.toLong(), y.toLong())
+
+infix fun Long.by(y: Long): Vec2 = Vec2(this, y)
 
 enum class Direction {
     UP,
@@ -69,10 +72,10 @@ enum class Direction {
 }
 
 operator fun <T> List<List<T>>.get(index: Vec2) =
-    this[index.y][index.x]
+    this[index.y.toInt()][index.x.toInt()]
 
 operator fun <T> List<MutableList<T>>.set(index: Vec2, value: T) {
-    this[index.y][index.x] = value
+    this[index.y.toInt()][index.x.toInt()] = value
 }
 
 fun Boolean.toInt() = if (this) 1 else 0
