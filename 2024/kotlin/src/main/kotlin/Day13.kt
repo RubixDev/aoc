@@ -39,7 +39,7 @@ private fun part1(input: List<Triple<Vec2, Vec2, Vec2>>): Long =
     input.sumOf { (a, b, t) ->
         val i = (b.y * t.x - b.x * t.y) / (a.x * b.y - a.y * b.x)
         val j = (a.y * t.x - a.x * t.y) / (a.y * b.x - a.x * b.y)
-        if (a * i + b * j == t) 3 * i + j else 0
+        if (i * a + j * b == t) 3 * i + j else 0
     }
 
 private fun part2(input: List<Triple<Vec2, Vec2, Vec2>>): Long =
