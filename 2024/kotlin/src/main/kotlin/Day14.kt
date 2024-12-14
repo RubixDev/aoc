@@ -29,35 +29,27 @@ fun runDay14() {
     println("Part 2: ${part2(input)}")
 }
 
-private fun moveRobots(robots: MutableList<Pair<Vec2, Vec2>>) {
+private fun moveRobots(robots: MutableList<Pair<Vec2, Vec2>>, steps: Int = 1): Map<Vec2, Int> {
     for ((idx, robot) in robots.withIndex()) {
-        robots[idx] = robot.copy(first = (robot.first + robot.second) % SIZE)
+        robots[idx] = robot.copy(first = (robot.first + steps * robot.second) mod SIZE)
     }
+    return robots.groupingBy { it.first }.eachCount()
 }
 
 private fun part1(input: List<Pair<Vec2, Vec2>>): Int {
     val robots = input.toMutableList()
-    for (i in 1..100) moveRobots(robots)
-    val robotCounts = robots.groupingBy { it.first }.eachCount()
-    val rightHalf = when (SIZE.x % 2 != 0L) {
-        true -> SIZE.x / 2 + 1
-        false -> SIZE.x / 2
-    }
-    val bottomHalf = when (SIZE.y % 2 != 0L) {
-        true -> SIZE.y / 2 + 1
-        false -> SIZE.y / 2
-    }
+    val robotCounts = moveRobots(robots, 100)
+    // assumes odd-sized map
     return robotCounts.entries.filter { it.key.x < SIZE.x / 2 && it.key.y < SIZE.y / 2 }.sumOf { it.value } *
-            robotCounts.entries.filter { it.key.x >= rightHalf && it.key.y < SIZE.y / 2 }.sumOf { it.value } *
-            robotCounts.entries.filter { it.key.x < SIZE.x / 2 && it.key.y >= bottomHalf }.sumOf { it.value } *
-            robotCounts.entries.filter { it.key.x >= rightHalf && it.key.y >= bottomHalf }.sumOf { it.value }
+            robotCounts.entries.filter { it.key.x > SIZE.x / 2 && it.key.y < SIZE.y / 2 }.sumOf { it.value } *
+            robotCounts.entries.filter { it.key.x < SIZE.x / 2 && it.key.y > SIZE.y / 2 }.sumOf { it.value } *
+            robotCounts.entries.filter { it.key.x > SIZE.x / 2 && it.key.y > SIZE.y / 2 }.sumOf { it.value }
 }
 
 private fun part2(input: List<Pair<Vec2, Vec2>>): Int {
     val robots = input.toMutableList()
     for (i in 1..Int.MAX_VALUE) {
-        moveRobots(robots)
-        val robotCounts = robots.groupingBy { it.first }.eachCount()
+        val robotCounts = moveRobots(robots)
         // look for 16 robots in a row
         if (robotCounts.keys.any { pos -> (0..15).all { pos + (it by 0) in robotCounts } }) {
             printMap(robotCounts)
@@ -68,18 +60,12 @@ private fun part2(input: List<Pair<Vec2, Vec2>>): Int {
 }
 
 private fun printMap(robotCounts: Map<Vec2, Int>) {
-    var out = ""
-    for (y in 0..<SIZE.y) {
-        for (x in 0..<SIZE.x) {
-            out += when (val count = robotCounts[x by y]) {
+    println((0..<SIZE.y).joinToString("\n") { y ->
+        (0..<SIZE.x).joinToString { x ->
+            when (val count = robotCounts[x by y]) {
                 null -> "."
-                else -> when {
-                    "$count".length > 1 -> "X"
-                    else -> "$count"
-                }
+                else -> if (count > 9) "X" else "$count"
             }
         }
-        out += "\n"
-    }
-    print(out)
+    })
 }

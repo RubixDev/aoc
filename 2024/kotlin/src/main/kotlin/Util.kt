@@ -24,7 +24,8 @@ data class Vec2(
     operator fun times(scalar: Int) = x * scalar by y * scalar
     operator fun div(scalar: Long) = x / scalar by y / scalar
     operator fun div(scalar: Int) = x / scalar by y / scalar
-    operator fun rem(other: Vec2) = x.mod(other.x) by y.mod(other.y)
+    operator fun rem(other: Vec2) = x % other.x by y % other.y
+    infix fun mod(other: Vec2) = x.mod(other.x) by y.mod(other.y)
 
     fun isInBounds(map: Collection<Collection<*>>) =
         x in map.first().indices && y in map.indices
