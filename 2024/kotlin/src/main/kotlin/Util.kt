@@ -18,6 +18,8 @@ data class Vec2(
     val x: Long,
     val y: Long,
 ) {
+    constructor(v: Long) : this(v, v)
+
     operator fun plus(other: Vec2) = x + other.x by y + other.y
     operator fun minus(other: Vec2) = x - other.x by y - other.y
     operator fun times(scalar: Long) = x * scalar by y * scalar

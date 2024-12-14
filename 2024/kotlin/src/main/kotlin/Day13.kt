@@ -43,7 +43,7 @@ private fun part1(input: List<Triple<Vec2, Vec2, Vec2>>): Long =
     }
 
 private fun part2(input: List<Triple<Vec2, Vec2, Vec2>>): Long =
-    part1(input.map { (a, b, t) -> Triple(a, b, t + (10000000000000 by 10000000000000)) })
+    part1(input.map { (a, b, t) -> Triple(a, b, t + Vec2(10000000000000)) })
 
 //private fun part1(input: List<Triple<Vec2, Vec2, Vec2>>): Long =
 //    input.sumOf { (a, b, target) ->
