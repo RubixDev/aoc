@@ -1,6 +1,7 @@
 package de.rubixdev
 
 import java.io.File
+import kotlin.collections.mutableSetOf
 
 private data class Guard(
     var pos: Vec2,
@@ -10,7 +11,6 @@ private data class Guard(
 private enum class TileState {
     FREE,
     OBSTACLE,
-    VISITED,
 }
 
 fun runDay6() {
@@ -27,39 +27,41 @@ fun runDay6() {
                     '#' -> TileState.OBSTACLE
                     '^' -> {
                         guard.pos = x by y
-                        TileState.VISITED
+                        TileState.FREE
                     }
 
                     else -> throw RuntimeException("malformed input")
                 }
-            }.toMutableList()
+            }
         }
     println("--- Day 6 ---")
-    println("Part 1: ${part1(map.map { it.toMutableList() }, guard.copy())}")
-    println("Part 2: ${part2(map, guard)}")
+    val visited = part1(map, guard.copy())
+    println("Part 1: ${visited.size}")
+    println("Part 2: ${part2(map, guard, visited)}")
 }
 
-private fun part1(map: List<MutableList<TileState>>, guard: Guard): Int {
+private fun part1(map: List<List<TileState>>, guard: Guard): Set<Vec2> {
+    val visited = mutableSetOf(guard.pos)
     while (true) {
-        val nextPos = guard.facing.move(guard.pos)
+        val nextPos = guard.pos + guard.facing.vec
         if (!nextPos.isInBounds(map)) {
-            map[guard.pos] = TileState.VISITED
+            visited.add(guard.pos)
             break
         }
         if (map[nextPos] == TileState.OBSTACLE) {
             guard.facing = guard.facing.rotateRight()
             continue
         }
-        map[guard.pos] = TileState.VISITED
+        visited.add(guard.pos)
         guard.pos = nextPos
     }
 
-    return map.sumOf { line -> line.count { it == TileState.VISITED } }
+    return visited
 }
 
-private fun part2(map: List<MutableList<TileState>>, guard: Guard): Int {
+private fun part2(map: List<List<TileState>>, guard: Guard, tryBlocking: Set<Vec2>): Int {
     var count = 0
-    for (pos in map.first().indices.flatMap { x -> map.indices.map { y -> x by y } }.filter { it != guard.pos }) {
+    for (pos in tryBlocking.filter { it != guard.pos }) {
         val visited = mutableSetOf<Guard>()
         val modifiedMap = map.map { it.toMutableList() }.also { it[pos] = TileState.OBSTACLE }
         val guardClone = guard.copy()
@@ -68,7 +70,7 @@ private fun part2(map: List<MutableList<TileState>>, guard: Guard): Int {
                 count++
                 break
             }
-            val nextPos = guardClone.facing.move(guardClone.pos)
+            val nextPos = guardClone.pos + guardClone.facing.vec
             if (!nextPos.isInBounds(modifiedMap)) break
             if (modifiedMap[nextPos] == TileState.OBSTACLE) {
                 guardClone.facing = guardClone.facing.rotateRight()
