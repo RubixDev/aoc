@@ -1,7 +1,6 @@
 package de.rubixdev
 
 import java.io.File
-import kotlin.math.pow
 
 fun runDay7() {
     val example = "190: 10 19\n" +
@@ -21,43 +20,19 @@ fun runDay7() {
             }
         }
     println("--- Day 7 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+    println("Part 1: ${part(input, part2 = false)}")
+    println("Part 2: ${part(input, part2 = true)}")
 }
 
-private fun allPermutations(base: Int, digits: Int): List<List<Char>> =
-    // a very hacky way to generate all permutations
-    (0..<base.toFloat().pow(digits).toInt()).map { perm ->
-        perm.toString(base).padStart(digits, '0').toList()
+private fun isPossible(nums: List<Long>, target: Long, current: Long, part2: Boolean): Boolean =
+    when {
+        nums.isEmpty() -> current == target
+        current > target -> false
+        else -> isPossible(nums.drop(1), target, current + nums.first(), part2)
+            || isPossible(nums.drop(1), target, current * nums.first(), part2)
+            || (part2 && isPossible(nums.drop(1), target, "$current${nums.first()}".toLong(), part2))
     }
 
-private fun part1(input: List<Pair<Long, List<Long>>>): Long {
-    return input.filter { (testValue, nums) ->
-        allPermutations(2, nums.lastIndex).any { perm ->
-            perm.zip(nums.drop(1))
-                .fold(nums.first()) { acc, (bit, num) ->
-                    when (bit) {
-                        '0' -> acc + num
-                        '1' -> acc * num
-                        else -> throw IllegalStateException()
-                    }
-                } == testValue
-        }
-    }.sumOf { it.first }
-}
-
-private fun part2(input: List<Pair<Long, List<Long>>>): Long {
-    return input.filter { (testValue, nums) ->
-        allPermutations(3, nums.lastIndex).any { perm ->
-            perm.zip(nums.drop(1))
-                .fold(nums.first()) { acc, (bit, num) ->
-                    when (bit) {
-                        '0' -> acc + num
-                        '1' -> acc * num
-                        '2' -> "$acc$num".toLong()
-                        else -> throw IllegalStateException()
-                    }
-                } == testValue
-        }
-    }.sumOf { it.first }
-}
+private fun part(input: List<Pair<Long, List<Long>>>, part2: Boolean) =
+    input.filter { (target, nums) -> isPossible(nums.drop(1), target, nums.first(), part2) }
+        .sumOf { it.first }
