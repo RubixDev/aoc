@@ -61,7 +61,7 @@ private fun part2(input: List<Pair<Vec2, Vec2>>): Int {
 
 private fun printMap(robotCounts: Map<Vec2, Int>) {
     println((0..<SIZE.y).joinToString("\n") { y ->
-        (0..<SIZE.x).joinToString { x ->
+        (0..<SIZE.x).joinToString("") { x ->
             when (val count = robotCounts[x by y]) {
                 null -> "."
                 else -> if (count > 9) "X" else "$count"
