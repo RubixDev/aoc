@@ -58,6 +58,11 @@ enum class Direction {
         RIGHT -> 1 by 0
     }
 
+    val isHorizontal get() = when (this) {
+        UP, DOWN -> false
+        LEFT, RIGHT -> true
+    }
+
     fun rotateLeft() = when (this) {
         UP -> LEFT
         DOWN -> RIGHT
@@ -81,5 +86,10 @@ operator fun <T> List<List<T>>.get(index: Vec2) =
 operator fun <T> List<MutableList<T>>.set(index: Vec2, value: T) {
     this[index.y.toInt()][index.x.toInt()] = value
 }
+
+fun <T> Iterable<Iterable<T>>.findPos(predicate: (T) -> Boolean) =
+    withIndex().firstNotNullOf { (y, line) ->
+        line.withIndex().find { (_, tile) -> predicate(tile) }?.let { it.index by y }
+    }
 
 fun Boolean.toInt() = if (this) 1 else 0
