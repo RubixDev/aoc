@@ -34,12 +34,15 @@ private fun findPath(corrupted: Set<Vec2>): Int? {
 }
 
 private fun part2(input: List<Vec2>): String {
-    val corrupted = input.take(1024).toMutableSet()
-    for (nextCorrupted in input.drop(1024)) {
-        corrupted.add(nextCorrupted)
-        if (findPath(corrupted) == null) {
-            return "${nextCorrupted.x},${nextCorrupted.y}"
+    // binary search
+    var low = 0
+    var high = input.lastIndex
+    while (low <= high) {
+        val mid = (low + high) ushr 1
+        when (findPath(input.take(mid).toSet())) {
+            null -> high = mid - 1
+            else -> low = mid + 1
         }
     }
-    throw RuntimeException("path never blocked")
+    return input[low].let { "${it.x},${it.y}" }
 }
