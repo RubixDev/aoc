@@ -14,6 +14,9 @@ fun <T> List<T>.toPair(): Pair<T, T> =
 fun <T> List<T>.toTriple(): Triple<T, T, T> =
     Triple(this[0], this[1], this[2])
 
+fun List<Int>.toVec2(): Vec2 =
+    this[0] by this[1]
+
 data class Vec2(
     val x: Long,
     val y: Long,
@@ -31,6 +34,9 @@ data class Vec2(
 
     fun isInBounds(map: Collection<Collection<*>>) =
         x in map.first().indices && y in map.indices
+
+    fun isInBounds(size: Vec2) =
+        x in 0..size.x && y in 0..size.y
 
     fun reduce() = gcd(x, y).let { (x / it) by (y / it) }
 }
