@@ -1,7 +1,6 @@
 package de.rubixdev
 
 import java.io.File
-import kotlin.math.pow
 
 fun runDay17() {
     val example = """
@@ -63,14 +62,14 @@ private fun part2(instructions: List<Instruction>, b: Long, c: Long, i: Int = 0,
     if (i >= instructions.size) return 0
     return (0..Int.MAX_VALUE).firstNotNullOf {
         val min = 8 * part2(instructions, b, c, i + 1, it)
-        val max = if (i == instructions.lastIndex) 8.0.pow(i).toLong() else min + 8
+        val max = if (i == instructions.lastIndex) 1L shl 3 * i else min + 8
         val currInstr = instructions[i].int.toLong()
         (min..<max).asSequence()
             .filter { a -> run(instructions, Triple(a, b, c)).first() == currInstr }
             // don't ask
             .drop((skip - (0..<it).sumOf { s ->
                 val sMin = 8 * part2(instructions, b, c, i + 1, s)
-                val sMax = if (i == instructions.lastIndex) 8.0.pow(i).toLong() else sMin + 8
+                val sMax = if (i == instructions.lastIndex) 1L shl 3 * i else sMin + 8
                 val sCurrInstr = instructions[i].int.toLong()
                 (sMin..<sMax).asSequence()
                     .filter { a -> run(instructions, Triple(a, b, c)).first() == sCurrInstr }
@@ -96,7 +95,7 @@ private fun run(instructions: List<Instruction>, registers: Triple<Long, Long, L
     while (pc in instructions.indices) {
         val operand = instructions[pc + 1].int
         when (instructions[pc]) {
-            Instruction.ADV -> a /= 2.0.pow(getCombo(operand).toInt()).toLong()
+            Instruction.ADV -> a /= 1 shl getCombo(operand).toInt()
             Instruction.BXL -> b = b xor operand.toLong()
             Instruction.BST -> b = getCombo(operand) and 0b111
             Instruction.JNZ -> if (a != 0L) {
@@ -106,8 +105,8 @@ private fun run(instructions: List<Instruction>, registers: Triple<Long, Long, L
 
             Instruction.BXC -> b = b xor c
             Instruction.OUT -> yield(getCombo(operand) and 0b111)
-            Instruction.BDV -> b = a / 2.0.pow(getCombo(operand).toInt()).toLong()
-            Instruction.CDV -> c = a / 2.0.pow(getCombo(operand).toInt()).toLong()
+            Instruction.BDV -> b = a / (1 shl getCombo(operand).toInt())
+            Instruction.CDV -> c = a / (1 shl getCombo(operand).toInt())
         }
         pc += 2
     }
