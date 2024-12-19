@@ -93,6 +93,9 @@ operator fun <T> List<MutableList<T>>.set(index: Vec2, value: T) {
     this[index.y.toInt()][index.x.toInt()] = value
 }
 
+fun <T> List<List<T>>.getOrNull(index: Vec2) =
+    getOrNull(index.y.toInt())?.getOrNull(index.x.toInt())
+
 fun <T> Iterable<Iterable<T>>.findPos(predicate: (T) -> Boolean) =
     withIndex().firstNotNullOf { (y, line) ->
         line.withIndex().find { (_, tile) -> predicate(tile) }?.let { it.index by y }

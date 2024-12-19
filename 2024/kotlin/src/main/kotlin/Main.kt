@@ -11,6 +11,7 @@ private val DAYS = listOf(
     ::runDay1,
     ::runDay2,
     ::runDay3,
+    ::runDay4,
     ::runDay5,
     ::runDay6,
     ::runDay7,
