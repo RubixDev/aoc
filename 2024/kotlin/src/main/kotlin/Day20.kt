@@ -46,16 +46,16 @@ private fun part1(map: List<List<Boolean>>, distances: Map<Vec2, Int>): Int =
     part2(map, distances, maxSteps = 2)
 
 private fun part2(map: List<List<Boolean>>, distances: Map<Vec2, Int>, maxSteps: Int = 20): Int =
-    distances.keys.sumOf { pos ->
+    distances.keys.parallelStream().map { pos ->
         Direction.entries.sumOf { dir ->
             (1..maxSteps).sumOf { i ->
-                (0..(maxSteps - i)).count { j ->
+                (0..maxSteps - i).count { j ->
                     val cheatPos = pos + i * dir.vec + j * dir.rotateRight().vec
                     map.getOrNull(cheatPos) == false && distances[cheatPos]!! >= distances[pos]!! + 100 + i + j
                 }
             }
         }
-    }
+    }.reduce(0) { acc, n -> acc + n }
 
 // My original part 1 solution. Runs for about 16 minutes :)
 //
