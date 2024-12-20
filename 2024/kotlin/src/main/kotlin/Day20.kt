@@ -46,15 +46,12 @@ private fun part1(map: List<List<Boolean>>, distances: Map<Vec2, Int>): Int =
     part2(map, distances, maxSteps = 2)
 
 private fun part2(map: List<List<Boolean>>, distances: Map<Vec2, Int>, maxSteps: Int = 20): Int =
-    // credit: Gobidev
-    map.withIndex().sumOf { (y, line) ->
-        line.withIndex().filter { !it.value }.sumOf { (x, _) ->
-            Direction.entries.sumOf { dir ->
-                (1..maxSteps).sumOf { i ->
-                    (0..(maxSteps - i)).count { j ->
-                        val cheatPos = (x by y) + i * dir.vec + j * dir.rotateRight().vec
-                        map.getOrNull(cheatPos) == false && distances[cheatPos]!! >= distances[x by y]!! + 100 + i + j
-                    }
+    distances.keys.sumOf { pos ->
+        Direction.entries.sumOf { dir ->
+            (1..maxSteps).sumOf { i ->
+                (0..(maxSteps - i)).count { j ->
+                    val cheatPos = pos + i * dir.vec + j * dir.rotateRight().vec
+                    map.getOrNull(cheatPos) == false && distances[cheatPos]!! >= distances[pos]!! + 100 + i + j
                 }
             }
         }
