@@ -82,9 +82,8 @@ private fun computeForNextRobot(code: String, pads: List<ShortestPaths>): Long =
         else -> cache.getOrPut(code to pads.size) {
             (listOf('A') + code.toList()).windowed(2).map { (start, end) ->
                 pad[start to end]!!.map { path -> path.joinToString("", postfix = "A") { it.toString() } }
-            }.cartesianProduct().map { it.joinToString("") }.minOf { path ->
-                path.split('A').dropLast(1)
-                    .sumOf { computeForNextRobot("${it}A", pads.drop(1)) }
+            }.cartesianProduct().minOf { path ->
+                path.sumOf { computeForNextRobot(it, pads.drop(1)) }
             }
         }
     }
