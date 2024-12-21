@@ -28,6 +28,7 @@ private val DAYS = listOf(
     ::runDay18,
     ::runDay19,
     ::runDay20,
+    ::runDay21,
 )
 
 fun main() {

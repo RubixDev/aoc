@@ -84,6 +84,13 @@ enum class Direction {
     }
 
     fun move(vec2: Vec2) = vec + vec2
+
+    override fun toString() = when (this) {
+        UP -> "^"
+        DOWN -> "v"
+        LEFT -> "<"
+        RIGHT -> ">"
+    }
 }
 
 operator fun <T> List<List<T>>.get(index: Vec2) =
@@ -102,3 +109,10 @@ fun <T> Iterable<Iterable<T>>.findPos(predicate: (T) -> Boolean) =
     }
 
 fun Boolean.toInt() = if (this) 1 else 0
+
+fun <T> List<List<T>>.cartesianProduct(): Sequence<List<T>> =
+    when (size) {
+        0 -> sequenceOf()
+        1 -> get(0).asSequence().map { listOf(it) }
+        else -> get(0).asSequence().flatMap { a -> drop(1).cartesianProduct().map { b -> listOf(a) + b } }
+    }
