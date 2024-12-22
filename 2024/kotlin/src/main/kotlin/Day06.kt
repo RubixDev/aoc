@@ -60,11 +60,11 @@ private fun part1(map: List<List<TileState>>, guard: Guard): Set<Vec2> {
 }
 
 private fun part2(map: List<List<TileState>>, guard: Guard, tryBlocking: Set<Vec2>): Int {
-    var count = 0
-    for (pos in tryBlocking.filter { it != guard.pos }) {
+    return tryBlocking.parallelStream().filter { it != guard.pos }.map { pos ->
         val visited = mutableSetOf<Guard>()
         val modifiedMap = map.map { it.toMutableList() }.also { it[pos] = TileState.OBSTACLE }
         val guardClone = guard.copy()
+        var count = 0
         while (true) {
             if (!visited.add(guardClone.copy())) {
                 count++
@@ -78,7 +78,6 @@ private fun part2(map: List<List<TileState>>, guard: Guard, tryBlocking: Set<Vec
             }
             guardClone.pos = nextPos
         }
-    }
-
-    return count
+        count
+    }.reduce(0) { acc, e -> acc + e }
 }
