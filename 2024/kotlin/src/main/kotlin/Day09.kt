@@ -2,14 +2,15 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay9() {
+fun day9(): Day = sequence {
     val example = "2333133121414131402"
 //    val input = example
     val input = File("inputs/day9.txt").readText().trim()
         .map { it.digitToInt() }
-    println("--- Day 9 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun part1(input: List<Int>): Long {

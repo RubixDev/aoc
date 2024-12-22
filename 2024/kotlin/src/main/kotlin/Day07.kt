@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay7() {
+fun day7(): Day = sequence {
     val example = "190: 10 19\n" +
             "3267: 81 40 27\n" +
             "83: 17 5\n" +
@@ -19,9 +19,10 @@ fun runDay7() {
                 it[0].toLong() to it[1].split(" ").map(String::toLong)
             }
         }
-    println("--- Day 7 ---")
-    println("Part 1: ${part(input, part2 = false)}")
-    println("Part 2: ${part(input, part2 = true)}")
+
+    yield(Unit)
+    yield(part(input, part2 = false))
+    yield(part(input, part2 = true))
 }
 
 private fun isPossible(nums: List<Long>, target: Long, current: Long, part2: Boolean): Boolean =

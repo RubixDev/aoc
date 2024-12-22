@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay5() {
+fun day5(): Day = sequence {
     val (rawRules, rawUpdates) = File("inputs/day5.txt").readText().split("\n\n")
     val rules = rawRules.split("\n").map { line ->
         line.split("|").map { it.toInt() }.toPair()
@@ -10,9 +10,9 @@ fun runDay5() {
     val updates = rawUpdates.split("\n").filter { it.isNotBlank() }
         .map { line -> line.split(",").map { it.toInt() } }
 
-    println("--- Day 5 ---")
-    println("Part 1: ${part1(rules, updates)}")
-    println("Part 2: ${part2(rules, updates)}")
+    yield(Unit)
+    yield(part1(rules, updates))
+    yield(part2(rules, updates))
 }
 
 private fun List<Int>.isOrderedCorrectly(rules: List<Pair<Int, Int>>): Boolean =

@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay17() {
+fun day17(): Day = sequence {
     val example = """
     Register A: 729
     Register B: 0
@@ -36,9 +36,9 @@ fun runDay17() {
         }
     }
 
-    println("--- Day 17 ---")
-    println("Part 1: ${part1(instructions, registers)}")
-    println("Part 2: ${part2(instructions, registers)}")
+    yield(Unit)
+    yield(part1(instructions, registers))
+    yield(part2(instructions, registers))
 }
 
 enum class Instruction(val int: Int) {

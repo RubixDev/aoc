@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay19() {
+fun day19(): Day = sequence {
     val example = """
     r, wr, b, g, bwu, rb, gb, br
 
@@ -19,9 +19,10 @@ fun runDay19() {
     val (rawTowels, rawPatterns) = File("inputs/day19.txt").readText().trim().split("\n\n")
     val towels = rawTowels.split(", ")
     val patterns = rawPatterns.lines()
-    println("--- Day 19 ---")
-    println("Part 1: ${part1(towels, patterns)}")
-    println("Part 2: ${part2(towels, patterns)}")
+
+    yield(Unit)
+    yield(part1(towels, patterns))
+    yield(part2(towels, patterns))
 }
 
 private fun part1(towels: List<String>, patterns: List<String>): Int {

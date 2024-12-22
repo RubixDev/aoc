@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay20() {
+fun day20(): Day = sequence {
     var startPos = 0 by 0
     var endPos = 0 by 0
     val input = File("inputs/day20.txt").readLines()
@@ -18,10 +18,11 @@ fun runDay20() {
                 }
             }
         }
+
+    yield(Unit)
     val distances = findPath(input, startPos, endPos)
-    println("--- Day 20 ---")
-    println("Part 1: ${part1(input, distances)}")
-    println("Part 2: ${part2(input, distances)}")
+    yield(part1(input, distances))
+    yield(part2(input, distances))
 }
 
 private fun findPath(map: List<List<Boolean>>, startPos: Vec2, endPos: Vec2): Map<Vec2, Int> {

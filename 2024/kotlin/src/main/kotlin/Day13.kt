@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay13() {
+fun day13(): Day = sequence {
     val example = "Button A: X+94, Y+34\n" +
             "Button B: X+22, Y+67\n" +
             "Prize: X=8400, Y=5400\n" +
@@ -28,9 +28,10 @@ fun runDay13() {
                 }
             }.toTriple()
         }
-    println("--- Day 13 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 // Prompted Wolfram Alpha with:

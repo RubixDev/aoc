@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay10() {
+fun day10(): Day = sequence {
     val example = "89010123\n" +
             "78121874\n" +
             "87430965\n" +
@@ -14,9 +14,10 @@ fun runDay10() {
 //    val input = example.lines()
     val input = File("inputs/day10.txt").readLines()
         .map { line -> line.map { it.digitToInt() } }
-    println("--- Day 10 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun findTrails(startPos: Vec2, map: List<List<Int>>): List<Vec2> {

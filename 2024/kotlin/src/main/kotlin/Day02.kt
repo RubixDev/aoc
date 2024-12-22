@@ -2,12 +2,13 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay2() {
+fun day2(): Day = sequence {
     val input = File("inputs/day2.txt").readLines()
         .map { line -> line.split(" ").map { it.toInt() } }
-    println("--- Day 2 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun List<Int>.isSafe() =

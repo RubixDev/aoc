@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay8() {
+fun day8(): Day = sequence {
     val example = "............\n" +
             "........0...\n" +
             ".....0......\n" +
@@ -29,9 +29,10 @@ fun runDay8() {
         .groupBy { it.first }
         .values
         .map { l -> l.map { it.second } }
-    println("--- Day 8 ---")
-    println("Part 1: ${part1(input, bounds)}")
-    println("Part 2: ${part2(input, bounds)}")
+
+    yield(Unit)
+    yield(part1(input, bounds))
+    yield(part2(input, bounds))
 }
 
 private fun part1(input: List<List<Vec2>>, bounds: Collection<Collection<*>>): Int {

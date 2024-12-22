@@ -3,14 +3,15 @@ package de.rubixdev
 import java.io.File
 import kotlin.math.abs
 
-fun runDay1() {
+fun day1(): Day = sequence {
     val input = File("inputs/day1.txt").readLines()
         .map { line -> line.split("   ").map(String::toInt).let { it[0] to it[1] } }
         .unzip()
         .map { it.sorted() }
-    println("--- Day 1 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun part1(input: Pair<List<Int>, List<Int>>): Int =

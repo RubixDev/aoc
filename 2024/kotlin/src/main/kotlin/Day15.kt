@@ -17,7 +17,7 @@ enum class WideTile {
     ROBOT,
 }
 
-fun runDay15() {
+fun day15(): Day = sequence {
     val example = """
 ##########
 #..O..O.O#
@@ -63,9 +63,10 @@ v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^
             else -> null
         }
     }
-    println("--- Day 15 ---")
-    println("Part 1: ${part1(map, movements)}")
-    println("Part 2: ${part2(map, movements)}")
+
+    yield(Unit)
+    yield(part1(map, movements))
+    yield(part2(map, movements))
 }
 
 private fun tryMove(pos: Vec2, direction: Direction, map: List<MutableList<Tile>>): Boolean {

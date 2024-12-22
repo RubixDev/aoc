@@ -3,7 +3,7 @@ package de.rubixdev
 import java.io.File
 import kotlin.math.abs
 
-fun runDay21() {
+fun day21(): Day = sequence {
     val example = """
     029A
     980A
@@ -13,9 +13,10 @@ fun runDay21() {
     """.trimIndent()
 //    val input = example.lines()
     val input = File("inputs/day21.txt").readLines()
-    println("--- Day 21 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private val KEYPAD = """

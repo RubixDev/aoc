@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay12() {
+fun day12(): Day = sequence {
     val example = "RRRRIICCFF\n" +
             "RRRRIICCCF\n" +
             "VVRRRCCFFF\n" +
@@ -16,9 +16,10 @@ fun runDay12() {
 //    val input = example.lines()
     val input = File("inputs/day12.txt").readLines()
         .map { it.toList() }
-    println("--- Day 12 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun floodRegion(

@@ -4,13 +4,13 @@ import java.io.File
 
 private val SIZE = 70 by 70
 
-fun runDay18() {
+fun day18(): Day = sequence {
     val input = File("inputs/day18.txt").readLines()
         .map { line -> line.split(",").map { it.toInt() }.toVec2() }
 
-    println("--- Day 18 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun part1(input: List<Vec2>): Int =

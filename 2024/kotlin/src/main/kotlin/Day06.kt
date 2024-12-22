@@ -3,6 +3,10 @@ package de.rubixdev
 import java.io.File
 import kotlin.collections.mutableSetOf
 
+private class Part1Result(val visited: Set<Vec2>) {
+    override fun toString() = visited.size.toString()
+}
+
 private data class Guard(
     var pos: Vec2,
     var facing: Direction,
@@ -13,7 +17,7 @@ private enum class TileState {
     OBSTACLE,
 }
 
-fun runDay6() {
+fun day6(): Day = sequence {
     val guard = Guard(
         facing = Direction.UP,
         pos = -1 by -1,
@@ -34,10 +38,11 @@ fun runDay6() {
                 }
             }
         }
-    println("--- Day 6 ---")
+
+    yield(Unit)
     val visited = part1(map, guard.copy())
-    println("Part 1: ${visited.size}")
-    println("Part 2: ${part2(map, guard, visited)}")
+    yield(visited.size)
+    yield(part2(map, guard, visited))
 }
 
 private fun part1(map: List<List<TileState>>, guard: Guard): Set<Vec2> {

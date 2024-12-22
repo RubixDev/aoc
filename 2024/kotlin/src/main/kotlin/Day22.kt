@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay22() {
+fun day22(): Day = sequence {
     val example = """
     1
     10
@@ -19,9 +19,10 @@ fun runDay22() {
     // val input = example2.lines()
     val input = File("inputs/day22.txt").readLines()
         .map { line -> line.toLong() }
-    println("--- Day 22 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun pseudoRandom(seed: Long): Sequence<Long> = sequence {

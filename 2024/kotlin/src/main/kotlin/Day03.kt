@@ -2,11 +2,12 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay3() {
+fun day3(): Day = sequence {
     val input = File("inputs/day3.txt").readText()
-    println("--- Day 3 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun part1(input: String): Int =

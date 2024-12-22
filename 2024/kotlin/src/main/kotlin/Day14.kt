@@ -5,7 +5,7 @@ import java.io.File
 //private val SIZE = 11 by 7
 private val SIZE = 101 by 103
 
-fun runDay14() {
+fun day14(): Day = sequence {
     val example = "p=0,4 v=3,-3\n" +
             "p=6,3 v=-1,-3\n" +
             "p=10,3 v=-1,2\n" +
@@ -24,9 +24,10 @@ fun runDay14() {
             val (px, py, vx, vy) = Regex("-?\\d+").findAll(line).toList().map { it.value.toInt() }
             (px by py) to (vx by vy)
         }
-    println("--- Day 14 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private fun moveRobots(robots: MutableList<Pair<Vec2, Vec2>>, steps: Int = 1): Map<Vec2, Int> {

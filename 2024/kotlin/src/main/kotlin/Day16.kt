@@ -3,7 +3,7 @@ package de.rubixdev
 import java.io.File
 import java.util.PriorityQueue
 
-fun runDay16() {
+fun day16(): Day = sequence {
     val example = """
     #################
     #...#...#...#..E#
@@ -39,9 +39,10 @@ fun runDay16() {
                 }
             }
         }
-    println("--- Day 16 ---")
-    println("Part 1: ${part1(input, startPos, endPos)}")
-    println("Part 2: ${part2(input, startPos, endPos)}")
+
+    yield(Unit)
+    yield(part1(input, startPos, endPos))
+    yield(part2(input, startPos, endPos))
 }
 
 private fun part1(map: List<List<Boolean>>, startPos: Vec2, endPos: Vec2): Int {

@@ -2,7 +2,7 @@ package de.rubixdev
 
 import java.io.File
 
-fun runDay4() {
+fun day4(): Day = sequence {
     val example = """
     MMMSXXMASM
     MSAMXMSMSA
@@ -18,9 +18,10 @@ fun runDay4() {
 //    val input = example.lines()
     val input = File("inputs/day4.txt").readLines()
         .map { line -> line.toList() }
-    println("--- Day 4 ---")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
+
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
 }
 
 private val DIAGONAL = listOf(
