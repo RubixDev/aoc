@@ -43,10 +43,10 @@ private fun part2(input: List<Long>): Long =
                     listOf(a.second, b.second, c.second, d.second) to d.first
                 }
                 .groupingBy { it.first }
+                // only take the first of each key
                 .aggregate { _, acc: Long?, v, _ -> acc ?: v.second }
                 .entries
         }
         .groupingBy { it.key }
         .fold(0L) { acc, price -> acc + price.value }
-        .maxBy { it.value }
-        .value
+        .maxOf { it.value }
