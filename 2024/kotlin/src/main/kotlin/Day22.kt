@@ -9,7 +9,14 @@ fun runDay22() {
     100
     2024
     """.trimIndent()
+    val example2 = """
+    1
+    2
+    3
+    2024
+    """.trimIndent()
     // val input = example.lines()
+    // val input = example2.lines()
     val input = File("inputs/day22.txt").readLines()
         .map { line -> line.toLong() }
     println("--- Day 22 ---")
@@ -30,7 +37,6 @@ private fun pseudoRandom(seed: Long): Sequence<Long> = sequence {
 private fun part1(input: List<Long>): Long =
     input.sumOf { seed -> pseudoRandom(seed).drop(2000).first() }
 
-// once again, works for my input but not the example...
 private fun part2(input: List<Long>): Long =
     input
         .flatMap { seed ->
