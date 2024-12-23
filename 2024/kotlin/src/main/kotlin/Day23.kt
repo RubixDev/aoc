@@ -53,11 +53,11 @@ private fun part1(input: Map<String, List<String>>): Int =
     input.asSequence()
         .flatMap { (pc, adj) ->
             adj.withIndex().flatMap { (i, a) ->
-                adj.drop(i + 1).filter { b -> a in input[b]!! }
+                adj.drop(i + 1)
+                    .filter { b -> a in input[b]!! && listOf(pc, a, b).any { it.startsWith('t') } }
                     .map { setOf(pc, a, it) }
             }
         }
-        .filter { group -> group.any { it.startsWith('t') } }
         .count() / 3
 
 // Bron-Kerbosch algorithm
