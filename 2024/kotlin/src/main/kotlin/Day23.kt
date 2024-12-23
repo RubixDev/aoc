@@ -40,29 +40,25 @@ fun day23(): Day = sequence {
     // val input = example.lines()
     val input = File("inputs/day23.txt").readLines()
         .map { line -> line.split('-').toPair() }
-
-    yield(Unit)
-    val graph = makeGraph(input)
-    yield(part1(graph))
-    yield(part2(graph))
-}
-
-private fun makeGraph(input: List<Pair<String, String>>): Map<String, List<String>> =
-    input.flatMap { (a, b) -> listOf(a to b, b to a) }
+        .flatMap { (a, b) -> listOf(a to b, b to a) }
         .distinct()
         .groupBy({ it.first }, { it.second })
 
-private fun part1(graph: Map<String, List<String>>): Int =
-        graph.asSequence()
-            .flatMap { (pc, adj) ->
-                adj.flatMap { a ->
-                    adj.filter { b -> a != b && b in graph[a]!! && a in graph[b]!! }
-                        .map { setOf(pc, a, it) }
-                }
+    yield(Unit)
+    yield(part1(input))
+    yield(part2(input))
+}
+
+private fun part1(input: Map<String, List<String>>): Int =
+    input.asSequence()
+        .flatMap { (pc, adj) ->
+            adj.withIndex().flatMap { (i, a) ->
+                adj.drop(i + 1).filter { b -> a in input[b]!! }
+                    .map { setOf(pc, a, it) }
             }
-            .toSet()
-            .filter { group -> group.any { it.startsWith('t') } }
-            .size
+        }
+        .filter { group -> group.any { it.startsWith('t') } }
+        .count() / 3
 
 // Bron-Kerbosch algorithm
 private fun findMaximalClique(
@@ -70,28 +66,36 @@ private fun findMaximalClique(
     p: Set<String>,
     x: Set<String> = setOf(),
     graph: Map<String, List<String>>,
-): Set<Set<String>> {
-    val cliques = mutableSetOf<Set<String>>()
-    if (p.isEmpty() && x.isEmpty()) {
-        return cliques.apply { add(r) }
+): List<Set<String>> {
+    // r = required
+    // p = possible
+    // x = excluded
+    val cliques = mutableListOf<Set<String>>()
+    if (p.isEmpty()) {
+        if (x.isEmpty()) cliques.add(r)
+        return cliques
     }
 
+    // u = pivot = vertex in p with highest degree
+    val u = p.maxBy { graph[it]!!.size }
+    // all vertices in p that aren't neighbours of u
+    val todo = p.filter { v -> v !in graph[u]!! }.toMutableList()
     val pCopy = p.toMutableSet()
     val xCopy = x.toMutableSet()
-    while (!pCopy.isEmpty()) {
-        val v = pCopy.first()
-        val newR = r.toMutableSet().apply { add(v) }
-        val newP = pCopy.toMutableSet().apply { retainAll(graph[v]!!) }
-        val newX = xCopy.toMutableSet().apply { retainAll(graph[v]!!) }
-        cliques.addAll(findMaximalClique(newR, newP, newX, graph))
+    while (!todo.isEmpty()) {
+        val v = todo.removeLast()
         pCopy.remove(v)
+        val newR = r.toMutableSet().apply { add(v) }
+        val newP = pCopy.intersect(graph[v]!!)
+        val newX = xCopy.intersect(graph[v]!!)
+        cliques.addAll(findMaximalClique(newR, newP, newX, graph))
         xCopy.add(v)
     }
 
     return cliques
 }
 
-private fun part2(graph: Map<String, List<String>>): String =
-    findMaximalClique(p = graph.keys, graph = graph)
+private fun part2(input: Map<String, List<String>>): String =
+    findMaximalClique(p = input.keys, graph = input)
         .maxBy { it.size }
         .let { clique -> clique.sorted().joinToString(",") }
