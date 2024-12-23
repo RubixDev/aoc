@@ -15,8 +15,8 @@ fun day21(): Day = sequence {
     val input = File("inputs/day21.txt").readLines()
 
     yield(Unit)
-    yield(part1(input))
-    yield(part2(input))
+    yield(part(input, 3))
+    yield(part(input, 26))
 }
 
 private val KEYPAD = """
@@ -31,7 +31,10 @@ private val DIRPAD = """
 <v>
 """.trimIndent().lines().map { it.toList() }
 
-private typealias ShortestPaths = Map<Pair<Char, Char>, List<List<Direction>>>
+private val KEYPAD_SHORTEST_PATHS = getAllShortestPaths(KEYPAD)
+private val DIRPAD_SHORTEST_PATHS = getAllShortestPaths(DIRPAD)
+
+private typealias ShortestPaths = Map<Pair<Char, Char>, List<String>>
 
 private fun getAllShortestPaths(map: List<List<Char>>): ShortestPaths =
     map.withIndex().flatMap { (y, line) ->
@@ -46,6 +49,7 @@ private fun getAllShortestPaths(map: List<List<Char>>): ShortestPaths =
                         repeat(abs(dx)) { add(horizontal) }
                         repeat(abs(dy)) { add(vertical) }
                     }.let { listOf(it, it.reversed()) }.filter { isValidPath(it, map, x by y) }
+                        .map { path -> path.joinToString("", postfix = "A") { it.toString() } }
                 }
             }
         }
@@ -60,35 +64,20 @@ private fun isValidPath(path: List<Direction>, map: List<List<Char>>, startPos: 
     return true
 }
 
-private fun getForIndirections(input: List<String>, indirections: Int): Long {
-    val keypadShortestPaths = getAllShortestPaths(KEYPAD)
-    val dirpadShortestPaths = getAllShortestPaths(DIRPAD)
-
-    val lengths = input.map { code ->
-        computeForNextRobot(code, buildList {
-            add(keypadShortestPaths)
-            repeat(indirections) { add(dirpadShortestPaths) }
-        })
-    }
-
-    return lengths.zip(input).sumOf { (sequence, code) ->
-        sequence * code.replace("A", "").toLong()
-    }
-}
+private fun part(input: List<String>, indirections: Int): Long =
+    input.map { code -> computeForNextRobot(code, indirections) }
+        .zip(input)
+        .sumOf { (sequence, code) -> sequence * code.replace("A", "").toLong() }
 
 private val cache = mutableMapOf<Pair<String, Int>, Long>()
-private fun computeForNextRobot(code: String, pads: List<ShortestPaths>): Long =
-    when (val pad = pads.firstOrNull()) {
-        null -> code.length.toLong()
-        else -> cache.getOrPut(code to pads.size) {
-            (listOf('A') + code.toList()).windowed(2).map { (start, end) ->
-                pad[start to end]!!.map { path -> path.joinToString("", postfix = "A") { it.toString() } }
-            }.cartesianProduct().minOf { path ->
-                path.sumOf { computeForNextRobot(it, pads.drop(1)) }
+private fun computeForNextRobot(code: String, depth: Int, pad: ShortestPaths = KEYPAD_SHORTEST_PATHS): Long =
+    when (depth) {
+        0 -> code.length.toLong()
+        else -> cache.getOrPut(code to depth) {
+            (listOf('A') + code.toList()).windowed(2)
+                .map { (start, end) -> pad[start to end]!! }
+                .cartesianProduct()
+                .minOf { path -> path.sumOf { computeForNextRobot(it, depth - 1, DIRPAD_SHORTEST_PATHS) }
             }
         }
     }
-
-
-private fun part1(input: List<String>) = getForIndirections(input, 2)
-private fun part2(input: List<String>) = getForIndirections(input, 25)
