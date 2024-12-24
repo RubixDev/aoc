@@ -28,6 +28,7 @@ private val DAYS: List<() -> Day> = listOf(
     ::day21,
     ::day22,
     ::day23,
+    ::day24,
 )
 
 fun main() {

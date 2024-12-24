@@ -110,6 +110,10 @@ fun <T> Iterable<Iterable<T>>.findPos(predicate: (T) -> Boolean) =
 
 fun Boolean.toInt() = if (this) 1 else 0
 
+fun Boolean.toLong() = if (this) 1L else 0L
+
+fun Int.toBoolean() = this != 0
+
 fun <T> List<List<T>>.cartesianProduct(): Sequence<List<T>> =
     when (size) {
         0 -> sequenceOf()
