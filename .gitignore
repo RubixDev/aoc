@@ -3,3 +3,5 @@ inputs
 day*.txt
 
 .idea/
+
+leaderboard*.json
