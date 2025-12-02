@@ -1,11 +1,43 @@
 package de.rubixdev
 
+import io.github.cdimascio.dotenv.dotenv
+import java.io.File
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse.BodyHandlers
+import kotlin.io.path.createParentDirectories
 import kotlin.math.abs
 
+fun getInput(day: Int, filename: String = "day"): String {
+    val file = File("inputs/$filename$day.txt")
+    file.toPath().createParentDirectories()
+    if (file.exists()) {
+        return file.readText().trim()
+    }
+
+    val sessionToken = dotenv()["AOC_SESSION"]!!
+    val response = HttpClient.newHttpClient().send(
+        HttpRequest.newBuilder(URI.create("https://adventofcode.com/2025/day/$day/input"))
+            .header("Cookie", "session=$sessionToken")
+            .build(),
+        BodyHandlers.ofString(),
+    )
+    return response.body().trim()
+}
+
 fun <A, B> Pair<A, A>.map(mapper: (A) -> B): Pair<B, B> = mapper(first) to mapper(second)
+fun <A, B, C> Pair<A, B>.mapFirst(mapper: (A) -> C): Pair<C, B> = mapper(first) to second
+fun <A, B, C> Pair<A, B>.mapSecond(mapper: (B) -> C): Pair<A, C> = first to mapper(second)
 
 fun <A, B> Triple<A, A, A>.map(mapper: (A) -> B): Triple<B, B, B> =
     Triple(mapper(first), mapper(second), mapper(third))
+fun <A, B, C, D> Triple<A, B, C>.mapFirst(mapper: (A) -> D): Triple<D, B, C> =
+    Triple(mapper(first), second, third)
+fun <A, B, C, D> Triple<A, B, C>.mapSecond(mapper: (B) -> D): Triple<A, D, C> =
+    Triple(first, mapper(second), third)
+fun <A, B, C, D> Triple<A, B, C>.mapThird(mapper: (C) -> D): Triple<A, B, D> =
+    Triple(first, second, mapper(third))
 
 fun <T> List<T>.toPair(): Pair<T, T> = this[0] to this[1]
 

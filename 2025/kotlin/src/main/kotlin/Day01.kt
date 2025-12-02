@@ -1,12 +1,10 @@
 package de.rubixdev
 
-import java.io.File
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
 fun day1(): Day = sequence {
-    val input = File("inputs/day1.txt")
-        .readLines()
+    val input = getInput(1).lines()
         .map { line -> line.replace("R", "").replace('L', '-').toInt() }
 
     yield(Unit)

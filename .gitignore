@@ -5,3 +5,4 @@ day*.txt
 .idea/
 
 leaderboard*.json
+.env
