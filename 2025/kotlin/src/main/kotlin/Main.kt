@@ -7,7 +7,7 @@ typealias Day = Sequence<Any>
 private val DAYS: List<() -> Day> =
     listOf(
         ::day1,
-//    ::day2,
+        ::day2,
 //    ::day3,
 //    ::day4,
 //    ::day5,

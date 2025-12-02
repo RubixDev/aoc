@@ -121,8 +121,7 @@ fun <T> List<List<T>>.cartesianProduct(): Sequence<List<T>> = when (size) {
 
     else -> get(0).asSequence().flatMap { a ->
         drop(1).cartesianProduct().map { b ->
-            listOf(a) +
-                b
+            listOf(a) + b
         }
     }
 }
