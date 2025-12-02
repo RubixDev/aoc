@@ -25,5 +25,5 @@ private fun part(input: List<LongRange>, regex: Regex): Long = input
     .filter { regex.matches(it.toString()) }
     .sum()
 
-private fun part1(input: List<LongRange>) = part(input, "^([1-9][0-9]*)\\1$".toRegex())
-private fun part2(input: List<LongRange>) = part(input, "^([1-9][0-9]*)\\1+$".toRegex())
+private fun part1(input: List<LongRange>) = part(input, "^([0-9]+)\\1$".toRegex())
+private fun part2(input: List<LongRange>) = part(input, "^([0-9]+)\\1+$".toRegex())

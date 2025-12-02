@@ -16,7 +16,7 @@ fun day1(): Day = sequence {
 
 private fun part1(input: List<Int>): Int = input
     .asSequence()
-    .runningFold(50) { acc, i -> (acc + i).mod(100) }
+    .scan(50) { acc, i -> (acc + i).mod(100) }
     .count { it == 0 }
 
 private fun part2(input: List<Int>): Int = input
