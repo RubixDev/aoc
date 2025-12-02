@@ -1,6 +1,9 @@
+import com.diffplug.gradle.spotless.BaseKotlinExtension
+
 plugins {
     kotlin("jvm") version "2.0.21"
     application
+    id("com.diffplug.spotless") version "8.1.0"
 }
 
 group = "de.rubixdev"
@@ -16,6 +19,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+
+    implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
 }
 
 tasks.test {
@@ -23,4 +28,18 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(21)
+}
+
+spotless {
+    fun BaseKotlinExtension.customKtlint() = ktlint("1.8.0").editorConfigOverride(
+        mapOf(
+            "max_line_length" to 100,
+        ),
+    )
+    kotlin {
+        customKtlint()
+    }
+    kotlinGradle {
+        customKtlint()
+    }
 }
