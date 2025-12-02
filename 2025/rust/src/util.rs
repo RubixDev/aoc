@@ -8,11 +8,13 @@ pub fn get_input(day: u8) -> String {
     _ = fs::create_dir_all(path.parent().unwrap());
 
     let session_token = dotenv::var("AOC_SESSION").expect("missing AOC_SESSION env variable");
-    reqwest::blocking::Client::new()
+    let text = reqwest::blocking::Client::new()
         .get(format!("https://adventofcode.com/2025/day/{day}/input"))
         .header("Cookie", format!("session={session_token}"))
         .send()
         .expect("couldn't get input from remote")
         .text()
-        .expect("coudn't get response text")
+        .expect("coudn't get response text");
+    _ = fs::write(path, &text);
+    text
 }
