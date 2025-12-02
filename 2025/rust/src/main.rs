@@ -15,4 +15,4 @@ macro_rules! run_days {
     };
 }
 
-run_days!(day1,);
+run_days!(day1, day2,);
