@@ -56,9 +56,9 @@ fun day25(): Day = sequence {
     yield("Chronicle Delivered :)")
 }
 
-private fun part1(locks: List<List<Int>>, keys: List<List<Int>>): Long =
+private fun part1(locks: List<List<Int>>, keys: List<List<Int>>): Int =
     locks.sumOf { lock ->
         keys.count { key ->
             key.zip(lock).all { (k, l) -> (k + l) < 6 }
-        }.toLong()
+        }
     }
