@@ -2,8 +2,10 @@ use std::ops::RangeInclusive;
 
 use itertools::Itertools;
 
+use crate::util;
+
 pub fn main() {
-    let input = include_str!("../inputs/day2.txt")
+    let input = util::get_input(2)
         .trim()
         .split(',')
         .map(|range| {

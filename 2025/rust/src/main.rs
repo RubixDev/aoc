@@ -1,3 +1,5 @@
+pub mod util;
+
 use std::time::Instant;
 
 macro_rules! run_days {

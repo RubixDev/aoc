@@ -1,5 +1,7 @@
+use crate::util;
+
 pub fn main() {
-    let input = include_str!("../inputs/day1.txt")
+    let input = util::get_input(1)
         .replace('L', "-")
         .replace('R', "")
         .lines()
