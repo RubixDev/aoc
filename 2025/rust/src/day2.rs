@@ -28,7 +28,7 @@ fn is_valid(id: u64, ns: impl Iterator<Item = usize>) -> bool {
             return true;
         }
     }
-    return false;
+    false
 }
 
 fn part(input: &[RangeInclusive<u64>], ns: impl Iterator<Item = usize> + Clone) -> u64 {
