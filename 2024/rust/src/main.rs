@@ -18,4 +18,5 @@ macro_rules! run_days {
 run_days!(
     day1,
     day5,
+    day17,
 );
