@@ -1,7 +1,7 @@
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 05 ---");
 
-    let input: Vec<u16> = include_str!("resources/input05.txt")
+    let input: Vec<u16> = input
         .split('\n')
         .map(|seat| (&seat[..7], &seat[7..]))
         .map(|seat| {

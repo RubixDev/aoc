@@ -18,11 +18,11 @@ impl Entry {
     }
 }
 
-pub fn main() {
+pub fn main(input: &str) {
     let mut cwd = PathBuf::from("/");
     let mut file_system: HashMap<PathBuf, Entry> =
         HashMap::from([(cwd.clone(), Entry::Dir(vec![]))]);
-    for line in include_str!("../inputs/day7.txt").lines() {
+    for line in input.lines() {
         match &line[..4] {
             "$ cd" => match &line[5..] {
                 "/" => cwd = PathBuf::from("/"),

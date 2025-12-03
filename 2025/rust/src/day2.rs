@@ -2,10 +2,8 @@ use std::ops::RangeInclusive;
 
 use itertools::Itertools;
 
-use crate::util;
-
-pub fn main() {
-    let input = util::get_input(2)
+pub fn main(input: &str) {
+    let input = input
         .trim()
         .split(',')
         .map(|range| {

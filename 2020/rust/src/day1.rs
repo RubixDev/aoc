@@ -1,6 +1,6 @@
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 01 ---");
-    let input = include_str!("resources/input01.txt")
+    let input = input
         .split('\n')
         .map(|num| num.parse::<u32>().unwrap())
         .collect::<Vec<u32>>();

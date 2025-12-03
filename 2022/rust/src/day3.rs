@@ -2,8 +2,8 @@ use std::collections::HashSet;
 
 use itertools::Itertools;
 
-pub fn main() {
-    let input: Vec<_> = include_str!("../inputs/day3.txt").lines().collect();
+pub fn main(input: &str) {
+    let input: Vec<_> = input.lines().collect();
     println!("--- Day 3 ---");
     println!("Part 1: {}", part1(&input));
     println!("Part 2: {}", part2(&input));

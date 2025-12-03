@@ -51,7 +51,7 @@ fn monkey(input: &str) -> IResult<&str, Monkey> {
     let (input, if_true) = usize(input)?;
     let (input, _) = tag("\n    If false: throw to monkey ")(input)?;
     let (input, if_false) = usize(input)?;
-    let (input, _) = tag("\n")(input)?;
+    let (input, _) = opt(tag("\n"))(input)?;
     Ok((
         input,
         Monkey {
@@ -93,9 +93,9 @@ fn value(input: &str) -> IResult<&str, Value> {
 
 ///////////////////////////////////////////
 
-pub fn main() {
+pub fn main(input: &str) {
     let (_, input) =
-        separated_list1(tag("\n"), monkey)(include_str!("../inputs/day11.txt")).unwrap();
+        separated_list1(tag("\n"), monkey)(input).unwrap();
 
     for (index, monke) in input.iter().enumerate() {
         assert_eq!(index, monke.number);

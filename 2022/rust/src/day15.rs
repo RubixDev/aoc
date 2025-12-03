@@ -2,9 +2,9 @@ use regex::Regex;
 
 type Pos = (i64, i64);
 
-pub fn main() {
+pub fn main(input: &str) {
     let rx = Regex::new(r"x=(-?\d+), y=(-?\d+).*is at x=(-?\d+), y=(-?\d+)").unwrap();
-    let input: Vec<(Pos, Pos)> = include_str!("../inputs/day15.txt")
+    let input: Vec<(Pos, Pos)> = input
         .lines()
         .map(|line| {
             let captures = rx.captures(line).unwrap();

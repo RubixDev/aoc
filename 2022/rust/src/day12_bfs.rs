@@ -12,8 +12,8 @@ const TEST: bool = false;
 const DEBUG: bool = false;
 const DEBUG_SLEEP_MILLIS: u64 = 0;
 
-pub fn main() {
-    let (start_pos, end_pos, heightmap) = parse_heightmap(TEST);
+pub fn main(input: &str) {
+    let (start_pos, end_pos, heightmap) = parse_heightmap(TEST, input);
 
     let mut step_counts = vec![vec![None; heightmap[0].len()]; heightmap.len()];
     step_counts[end_pos.1][end_pos.0] = Some(0);

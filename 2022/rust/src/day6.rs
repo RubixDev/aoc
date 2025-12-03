@@ -1,7 +1,7 @@
 use itertools::Itertools;
 
-pub fn main() {
-    let input = include_bytes!("../inputs/day6.txt");
+pub fn main(input: &str) {
+    let input = input.as_bytes();
     println!("--- Day 6 ---");
     println!("Part 1: {}", find_unique_window(input, 4));
     println!("Part 2: {}", find_unique_window(input, 14));

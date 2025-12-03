@@ -18,9 +18,9 @@ fn drive_slope(slope: Slope, map: &Vec<Vec<char>>) -> u16 {
     return count;
 }
 
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 03 ---");
-    let input: Vec<Vec<char>> = include_str!("resources/input03.txt")
+    let input: Vec<Vec<char>> = input
         .split('\n')
         .map(|line| line.chars().collect())
         .collect();

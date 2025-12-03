@@ -12,9 +12,9 @@ macro_rules! arr(
     )
 );
 
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 08 ---");
-    let input: Vec<([&str; 10], [&str; 4])> = include_str!("resources/input08.txt")
+    let input: Vec<([&str; 10], [&str; 4])> = input
         .split('\n')
         .map(|it| it.split(" | "))
         .map(|mut it| (it.next().unwrap().split(' '), it.next().unwrap().split(' ')))

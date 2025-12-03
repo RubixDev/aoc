@@ -5,10 +5,10 @@ fn get_field<'a>(field: &str, fields: &Vec<Vec<&'a str>>) -> &'a str {
     return fields.iter().find(|it| it[0] == field).and_then(|it| Some(it[1])).unwrap_or("");
 }
 
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 04 ---");
 
-    let input: Vec<Passport> = include_str!("resources/input04.txt")
+    let input: Vec<Passport> = input
         .split("\n\n")
         .map(|passport| {
             let fields: Vec<Vec<&str>> = passport.split(&[' ', '\n'][..]).map(|it| it.split(':').collect::<Vec<&str>>()).collect::<Vec<Vec<&str>>>();

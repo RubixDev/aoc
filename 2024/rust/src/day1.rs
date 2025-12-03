@@ -2,8 +2,8 @@ use itertools::Itertools;
 
 type Input = (Vec<u32>, Vec<u32>);
 
-pub fn main() {
-    let input = include_str!("../inputs/day1.txt")
+pub fn main(input: &str) {
+    let input = input
         .lines()
         .map(|line| {
             line.split_once("   ")

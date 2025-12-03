@@ -1,7 +1,7 @@
 use take_until::TakeUntilExt;
 
-pub fn main() {
-    let input: Vec<Vec<u8>> = include_str!("../inputs/day8.txt")
+pub fn main(input: &str) {
+    let input: Vec<Vec<u8>> = input
         .lines()
         .map(|line| line.as_bytes().iter().map(|tree| tree - b'0').collect())
         .collect();

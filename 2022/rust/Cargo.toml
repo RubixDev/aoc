@@ -10,5 +10,6 @@ itertools = "0.10.5"
 nom = "7.1.1"
 num-integer = "0.1.45"
 regex = "1.7.0"
+rust-shared = { path = "../../rust-shared" }
 strum = { version = "0.24.1", features = ["derive"] }
 take-until = "0.1.0"

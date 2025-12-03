@@ -27,9 +27,9 @@ struct Number {
     marked: bool,
 }
 
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 04 ---");
-    let mut raw_input: Split<&str> = include_str!("resources/input04.txt")
+    let mut raw_input: Split<&str> = input
         .split("\n\n");
     let input: (Vec<u8>, Vec<Board>) = (
         raw_input.next().unwrap().split(',').map(|num| num.parse::<u8>().unwrap()).collect::<Vec<u8>>(),

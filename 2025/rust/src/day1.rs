@@ -1,7 +1,5 @@
-use crate::util;
-
-pub fn main() {
-    let input = util::get_input(1)
+pub fn main(input: &str) {
+    let input = input
         .replace('L', "-")
         .replace('R', "")
         .lines()

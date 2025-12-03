@@ -1,5 +1,5 @@
-pub fn main() {
-    let input: Vec<[i64; 2]> = include_str!("../inputs/day2.txt")
+pub fn main(input: &str) {
+    let input: Vec<[i64; 2]> = input
         .lines()
         .map(|l| {
             let (elve, me) = l.split_once(' ').unwrap();

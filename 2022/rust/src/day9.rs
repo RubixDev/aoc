@@ -22,7 +22,7 @@ enum Motion {
     Right,
 }
 
-pub fn main() {
+pub fn main(input: &str) {
     let input: Vec<(Motion, usize)> = match TEST_INPUT {
         InputKind::Test1 => {
             "R 4
@@ -44,7 +44,7 @@ D 10
 L 25
 U 20"
         }
-        InputKind::Actual => include_str!("../inputs/day9.txt"),
+        InputKind::Actual => input,
     }
     .lines()
     .map(|line| {

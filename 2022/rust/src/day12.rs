@@ -16,8 +16,8 @@ pub enum Direction {
 
 pub type Pos = (usize, usize);
 
-pub fn main() {
-    let (start_pos, end_pos, heightmap) = parse_heightmap(TEST);
+pub fn main(input: &str) {
+    let (start_pos, end_pos, heightmap) = parse_heightmap(TEST, input);
 
     let mut step_counts = vec![vec![None; heightmap[0].len()]; heightmap.len()];
     step_counts[end_pos.1][end_pos.0] = Some(0);
@@ -35,7 +35,7 @@ pub fn main() {
     println!("Part 2: {}", part2(&step_counts, &heightmap));
 }
 
-pub fn parse_heightmap(test: bool) -> (Pos, Pos, Vec<Vec<u8>>) {
+pub fn parse_heightmap(test: bool, input: &str) -> (Pos, Pos, Vec<Vec<u8>>) {
     let input = match test {
         true => {
             "Sabqponm
@@ -44,7 +44,7 @@ accszExk
 acctuvwj
 abdefghi"
         }
-        false => include_str!("../inputs/day12.txt"),
+        false => input,
     };
     let mut start_pos = (0, 0);
     let mut end_pos = (0, 0);

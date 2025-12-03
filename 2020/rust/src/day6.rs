@@ -1,7 +1,7 @@
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 06 ---");
 
-    let input: Vec<Vec<&str>> = include_str!("resources/input06.txt")
+    let input: Vec<Vec<&str>> = input
         .split("\n\n")
         .map(|group| group.split('\n').collect::<Vec<&str>>())
         .collect::<Vec<Vec<&str>>>();

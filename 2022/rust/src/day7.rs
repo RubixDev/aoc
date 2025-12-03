@@ -27,7 +27,7 @@ impl FileKind {
 
 //////////////////////////////////////////////////////
 
-pub fn main() {
+pub fn main(input: &str) {
     let file_system = Rc::new(File {
         kind: FileKind::Directory {
             children: vec![].into(),
@@ -36,7 +36,7 @@ pub fn main() {
         parent: None,
     });
     let mut current_file = Rc::clone(&file_system);
-    for command in include_str!("../inputs/day7.txt").split("$ ").skip(1) {
+    for command in input.split("$ ").skip(1) {
         let (command, output) = command.split_once('\n').unwrap();
         match command.split_once(' ') {
             Some(("cd", "/")) => {

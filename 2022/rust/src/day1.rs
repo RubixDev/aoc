@@ -1,5 +1,5 @@
-pub fn main() {
-    let mut input = include_str!("../inputs/day1.txt")
+pub fn main(input: &str) {
+    let mut input = input
         .split("\n\n")
         .map(|inv| inv.lines().map(|cnt| cnt.parse::<u64>().unwrap()).sum())
         .collect::<Vec<_>>();

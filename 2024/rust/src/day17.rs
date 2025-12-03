@@ -10,7 +10,7 @@ fn get_combo(operand: u8, a: u64, b: u64, c: u64) -> u64 {
     }
 }
 
-pub fn main() {
+pub fn main(_input: &str) {
     // let mut a = 28066687u64;
     let instr = [2u8, 4, 1, 1, 7, 5, 4, 6, 0, 3, 1, 4, 5, 5, 3, 0];
     let result = (146_900_000_000u64..=146_900_000_000_000u64).into_par_iter().find_first(|&(mut a)| {

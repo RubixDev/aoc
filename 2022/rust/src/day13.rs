@@ -38,9 +38,9 @@ fn list(input: &str) -> IResult<&str, Vec<Value>> {
 
 ////////////////////////////////
 
-pub fn main() {
+pub fn main(input: &str) {
     let (_, input): (_, Vec<[Value; 2]>) =
-        separated_list0(tag("\n\n"), pair)(include_str!("../inputs/day13.txt")).unwrap();
+        separated_list0(tag("\n\n"), pair)(input).unwrap();
 
     println!("--- Day 13 ---");
     println!("Part 1: {}", part1(&input));

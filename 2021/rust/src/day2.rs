@@ -1,6 +1,6 @@
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 02 ---");
-    let input: Vec<(&str, u8)> = include_str!("resources/input02.txt")
+    let input: Vec<(&str, u8)> = input
         .split('\n')
         .map(|line| line.split(' '))
         .map(|mut line| (line.next().unwrap(), line.next().unwrap().parse::<u8>().unwrap()))

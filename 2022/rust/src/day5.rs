@@ -1,5 +1,5 @@
-pub fn main() {
-    let (stack_input, instruction_input) = include_str!("../inputs/day5.txt")
+pub fn main(input: &str) {
+    let (stack_input, instruction_input) = input
         .split_once("\n\n")
         .unwrap();
     let indices: Vec<usize> = (1..).step_by(4).take(9).collect();

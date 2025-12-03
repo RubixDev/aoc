@@ -29,13 +29,13 @@ impl Display for Tile {
     }
 }
 
-pub fn main() {
+pub fn main(input: &str) {
     let input = match TEST {
         true => {
             "498,4 -> 498,6 -> 496,6
 503,4 -> 502,4 -> 502,9 -> 494,9"
         }
-        false => include_str!("../inputs/day14.txt"),
+        false => input,
     };
     let splines: Vec<Vec<Pos>> = input
         .lines()

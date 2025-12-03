@@ -1,6 +1,6 @@
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 09 ---");
-    let input: Vec<Vec<u8>> = include_str!("resources/input09.txt")
+    let input: Vec<Vec<u8>> = input
 //         "2199943210
 // 3987894921
 // 9856789892

@@ -1,8 +1,8 @@
-pub fn run() {
+pub fn main(input: &str) {
     let re = regex::Regex::new(r"^(\d{1,2})-(\d{1,2}) ([a-z]): ([a-z]+)$").unwrap();
 
     println!("--- DAY 02 ---");
-    let input = include_str!("resources/input02.txt")
+    let input = input
         .split('\n')
         .map(|policy| {
             let caps = re.captures(policy).unwrap();

@@ -3,8 +3,8 @@ enum Intruction {
     Noop,
 }
 
-pub fn main() {
-    let input: Vec<Intruction> = include_str!("../inputs/day10.txt")
+pub fn main(input: &str) {
+    let input: Vec<Intruction> = input
         .lines()
         .map(|line| match &line[..4] {
             "addx" => Intruction::Addx(line[5..].parse().unwrap()),

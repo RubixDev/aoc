@@ -1,0 +1,15 @@
+[workspace]
+resolver = "3"
+members = [
+  "2020/rust",
+  "2021/rust",
+  "2022/rust",
+  "2024/rust",
+  "2025/rust",
+  "rust-shared",
+]
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"

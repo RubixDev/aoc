@@ -2,8 +2,8 @@ use std::ops::RangeInclusive;
 
 use itertools::Itertools;
 
-pub fn main() {
-    let input: Vec<RangeInclusive<u8>> = include_str!("../inputs/day4.txt")
+pub fn main(input: &str) {
+    let input: Vec<RangeInclusive<u8>> = input
         .lines()
         .flat_map(|line| line.split(',').flat_map(|split| split.split('-')))
         .tuples()

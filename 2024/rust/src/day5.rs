@@ -2,10 +2,8 @@ use std::cmp::Ordering;
 
 use itertools::Itertools;
 
-pub fn main() {
-    let (rules, updates) = include_str!("../inputs/day5.txt")
-        .split_once("\n\n")
-        .unwrap();
+pub fn main(input: &str) {
+    let (rules, updates) = input.split_once("\n\n").unwrap();
     let rules = rules
         .lines()
         .map(|line| line.split_once('|').unwrap())

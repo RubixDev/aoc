@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-pub fn run() {
+pub fn main(input: &str) {
     println!("--- DAY 10 ---");
-    let input: Vec<Vec<char>> = include_str!("resources/input10.txt")
+    let input: Vec<Vec<char>> = input
         .split('\n')
         .map(|line| line.chars().collect::<Vec<char>>())
         .collect();
