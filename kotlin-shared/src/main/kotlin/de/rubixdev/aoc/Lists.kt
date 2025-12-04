@@ -22,6 +22,7 @@ fun <T> List<List<T>>.cartesianProduct(): Sequence<List<T>> = when (size) {
 // may lead to unintended results with unordered collections
 fun <T> Collection<T>.permutations(): Sequence<List<T>> = when (isEmpty()) {
     true -> sequenceOf(listOf())
+
     false -> sequence {
         drop(1).permutations().forEach { perm ->
             (0..perm.size).forEach { i ->

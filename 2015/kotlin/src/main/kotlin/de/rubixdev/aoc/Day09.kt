@@ -20,7 +20,9 @@ fun day9(input: String): Day = sequence {
 private fun allPathDistances(input: Map<Pair<String, String>, Int>): Sequence<Int> {
     val connections = input.mapKeys { it.key.toSet() }
     val nodes = input.keys.flatMap { it.toSet() }.toSet()
-    return nodes.permutations().filter { perm -> perm.windowed(2).all { it.toSet() in connections } }
+    return nodes.permutations().filter { perm ->
+        perm.windowed(2).all { it.toSet() in connections }
+    }
         .map { perm -> perm.windowed(2).sumOf { connections[it.toSet()]!! } }
 }
 
