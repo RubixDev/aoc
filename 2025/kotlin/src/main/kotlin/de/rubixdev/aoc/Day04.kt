@@ -41,7 +41,5 @@ private fun step(map: List<List<Boolean>>) = map.withIndex().map { (y, line) ->
             true -> 1 to false
             false -> 0 to tile
         }
-    }.fold(0 to listOf<Boolean>()) { (sum, line), (count, tile) -> (sum + count) to (line + tile) }
-}.fold(0 to listOf<List<Boolean>>()) { (sum, map), (count, line) ->
-    (sum + count) to map.plusElement(line)
-}
+    }.foldFirst(0) { sum, count -> sum + count }
+}.foldFirst(0) { sum, count -> sum + count }
