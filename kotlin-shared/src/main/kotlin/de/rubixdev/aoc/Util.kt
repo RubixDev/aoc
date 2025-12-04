@@ -208,3 +208,6 @@ fun <T> List<List<T>>.cartesianProduct(): Sequence<List<T>> = when (size) {
         }
     }
 }
+
+infix fun UShort.shl(other: UShort) = toUInt().shl(other.toInt()).toUShort()
+infix fun UShort.shr(other: UShort) = toUInt().shr(other.toInt()).toUShort()
