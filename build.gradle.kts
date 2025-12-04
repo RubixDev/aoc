@@ -6,6 +6,9 @@ plugins {
     id("com.diffplug.spotless") version "8.1.0"
 }
 
+tasks.register("runAll") {
+    dependsOn.addAll(subprojects.filter { it.name != "kotlin-shared" }.map { it.tasks["run"] })
+}
 
 allprojects {
     repositories {
@@ -54,7 +57,7 @@ subprojects {
     }
 }
 
-configure(subprojects.filter { it.name != "kotlin-shared"}) {
+configure(subprojects.filter { it.name != "kotlin-shared" }) {
     dependencies {
         implementation(project(":kotlin-shared"))
     }

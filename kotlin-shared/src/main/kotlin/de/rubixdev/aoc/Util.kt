@@ -11,17 +11,17 @@ import kotlin.math.abs
 import kotlin.time.measureTime
 
 typealias Day = Sequence<Any>
-typealias Days = List<(String) -> Day>
+typealias Days = Map<(String) -> Day, Int>
 
 fun runDays(days: Days, year: Int) {
     val total =
         measureTime {
-            for ((idx, day) in days.withIndex()) {
-                println("--- Day ${idx + 1} ---")
+            for ((day, n) in days.entries) {
+                println("--- Day $n ---")
                 val total =
                     measureTime {
                         val input: String
-                        val timeInput = measureTime { input = getInput(year, idx + 1) }
+                        val timeInput = measureTime { input = getInput(year, n) }
                         val iter = day(input).iterator()
                         val timeParse = measureTime { iter.next() }
                         val timePart1 = measureTime { println("Part 1: ${iter.next()}") }
