@@ -17,6 +17,11 @@ fun <T> List<T>.toPair(): Pair<T, T> = this[0] to this[1]
 
 fun <T> List<T>.toTriple(): Triple<T, T, T> = Triple(this[0], this[1], this[2])
 
+fun <T> Pair<T, T>.toList() = listOf(first, second)
+fun <T> Pair<T, T>.toSet() = setOf(first, second)
+fun <T> Triple<T, T, T>.toList() = listOf(first, second, third)
+fun <T> Triple<T, T, T>.toSet() = setOf(first, second, third)
+
 fun <A, B, R> Iterable<Pair<A, B>>.foldFirst(initial: R, operation: (R, A) -> R) =
     fold(initial) { acc, e -> operation(acc, e.first) } to map { it.second }
 
