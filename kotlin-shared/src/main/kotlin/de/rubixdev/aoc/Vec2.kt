@@ -85,10 +85,10 @@ enum class Direction {
     }
 }
 val ADJACENT = Direction.entries.map { it.vec } + listOf(
-    -1 by -1,
-    1 by -1,
-    1 by 1,
-    -1 by 1,
+    Direction.UP.vec + Direction.LEFT.vec,
+    Direction.UP.vec + Direction.RIGHT.vec,
+    Direction.DOWN.vec + Direction.LEFT.vec,
+    Direction.DOWN.vec + Direction.RIGHT.vec,
 )
 
 fun Char.toDirection() = when (this) {
