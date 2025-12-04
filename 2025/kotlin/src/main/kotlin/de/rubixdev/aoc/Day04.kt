@@ -28,31 +28,20 @@ private fun part1(input: List<List<Boolean>>) = input.withIndex().sumOf { (y, li
     }
 }
 
-private fun part2(input: List<List<Boolean>>): Int {
-    var map = input
-    var sum = 0
-    while (true) {
-        val (changedCount, newMap) = step(map)
-        if (changedCount == 0) break
-        sum += changedCount
-        map = newMap
-    }
-    return sum
-}
+private fun part2(input: List<List<Boolean>>) =
+    generateSequence(0 to input) { (_, map) -> step(map) }
+        .drop(1)
+        .map { it.first }
+        .takeWhile { it != 0 }
+        .sum()
 
-private fun step(map: List<List<Boolean>>): Pair<Int, List<List<Boolean>>> {
-    var count = 0
-    val newMap = map.withIndex().map { (y, line) ->
-        line.withIndex().map { (x, tile) ->
-            when (tile && ADJACENT.mapNotNull { map.getOrNull((x by y) + it) }.count { it } < 4) {
-                true -> {
-                    count++
-                    false
-                }
-
-                false -> tile
-            }
+private fun step(map: List<List<Boolean>>) = map.withIndex().map { (y, line) ->
+    line.withIndex().map { (x, tile) ->
+        when (tile && ADJACENT.mapNotNull { map.getOrNull((x by y) + it) }.count { it } < 4) {
+            true -> 1 to false
+            false -> 0 to tile
         }
-    }
-    return count to newMap
+    }.fold(0 to listOf<Boolean>()) { (sum, line), (count, tile) -> (sum + count) to (line + tile) }
+}.fold(0 to listOf<List<Boolean>>()) { (sum, map), (count, line) ->
+    (sum + count) to map.plusElement(line)
 }
