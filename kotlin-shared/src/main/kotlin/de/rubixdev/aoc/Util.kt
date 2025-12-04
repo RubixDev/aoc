@@ -153,6 +153,12 @@ enum class Direction {
         RIGHT -> ">"
     }
 }
+val ADJACENT = Direction.entries.map { it.vec } + listOf(
+    -1 by -1,
+    1 by -1,
+    1 by 1,
+    -1 by 1,
+)
 
 fun Char.toDirection() = when (this) {
     '^' -> Direction.UP
