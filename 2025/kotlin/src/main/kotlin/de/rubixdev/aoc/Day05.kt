@@ -33,12 +33,10 @@ private fun part1(ranges: List<LongRange>, inv: List<Long>) =
 
 private fun part2(ranges: List<LongRange>) = ranges.asSequence()
     .sortedBy { it.first }
-    .fold(mutableListOf<LongRange>()) { acc, range ->
-        acc.apply {
-            when (acc.isNotEmpty() && range.first in acc.last()) {
-                true -> set(lastIndex, last().first..max(range.last, last().last))
-                false -> add(range)
-            }
+    .fold(listOf<LongRange>()) { acc, range ->
+        when (acc.isNotEmpty() && range.first in acc.last()) {
+            true -> acc.dropLast(1).plusElement(acc.last().first..max(range.last, acc.last().last))
+            false -> acc.plusElement(range)
         }
     }
     .sumOf { it.last - it.first + 1 }
