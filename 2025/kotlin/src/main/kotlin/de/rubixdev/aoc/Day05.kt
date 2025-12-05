@@ -1,5 +1,7 @@
 package de.rubixdev.aoc
 
+import kotlin.math.max
+
 fun day5(input: String): Day = sequence {
     val example = """
         3-5
@@ -29,29 +31,14 @@ fun day5(input: String): Day = sequence {
 private fun part1(ranges: List<LongRange>, inv: List<Long>) =
     inv.count { id -> ranges.any { id in it } }
 
-// private fun part2(ranges: List<LongRange>) =
-//    ranges.asSequence().flatten().distinct().count()
-
-// TODO: improve
-private fun part2(ranges: List<LongRange>): Long {
-    var ranges = ranges
-    var withoutOverlaps = mutableListOf<LongRange>()
-    while (true) {
-        for (range in ranges) {
-            if (withoutOverlaps.any { range.first in it && range.last in it }) continue
-            val idx = withoutOverlaps.indexOfFirst { it.first in range || it.last in range }
-            if (idx == -1) {
-                withoutOverlaps.add(range)
-            } else {
-                val existing = withoutOverlaps[idx]
-                val start = if (existing.first in range) range.first else existing.first
-                val end = if (existing.last in range) range.last else existing.last
-                withoutOverlaps[idx] = start..end
+private fun part2(ranges: List<LongRange>) = ranges.asSequence()
+    .sortedBy { it.first }
+    .fold(mutableListOf<LongRange>()) { acc, range ->
+        acc.apply {
+            when (acc.isNotEmpty() && range.first in acc.last()) {
+                true -> set(lastIndex, last().first..max(range.last, last().last))
+                false -> add(range)
             }
         }
-        if (ranges == withoutOverlaps) break
-        ranges = withoutOverlaps
-        withoutOverlaps = mutableListOf()
     }
-    return withoutOverlaps.sumOf { it.last - it.first + 1 }
-}
+    .sumOf { it.last - it.first + 1 }
