@@ -6,7 +6,7 @@ private val DAYS: Days =
         ::day2 to 2,
         ::day3 to 3,
         ::day4 to 4,
-//        ::day5 to 5,
+        ::day5 to 5,
 //        ::day6 to 6,
 //        ::day7 to 7,
 //        ::day8 to 8,
