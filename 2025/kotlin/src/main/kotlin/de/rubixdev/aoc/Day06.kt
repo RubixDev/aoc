@@ -11,7 +11,7 @@ fun day6(input: String): Day = sequence {
     val ops = input.lines().last().trim().split("""\s+""".toRegex())
 //    val lines = example.lines().dropLast(1)
     val lines = input.lines().dropLast(1)
-    val input = lines.maxBy { it.length }.indices.map { i -> lines.map { it[i] } }
+    val input = lines.first().indices.map { i -> lines.map { it[i] } }
         .fold(listOf(lines.indices.map { "" })) { acc, c ->
             when (c.all { it == ' ' }) {
                 true -> acc.plusElement(lines.indices.map { "" })
