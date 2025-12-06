@@ -25,18 +25,18 @@ private tailrec fun lookAndSay(rest: List<Char>, acc: StringBuilder): StringBuil
         }
     }
 
-// private fun lookAndSayIter(input: String): String {
-//    var rest = input.toList()
-//    return buildString {
-//        while (rest.isNotEmpty()) {
-//            val num = rest.first()
-//            val count = rest.takeWhile { it == num }.count()
-//            rest = rest.subList(count, rest.size)
-//            append(count)
-//            append(num)
-//        }
-//    }
-// }
+private fun lookAndSayIter(input: String): String {
+    var rest = input.toList()
+    return buildString {
+        while (rest.isNotEmpty()) {
+            val num = rest.first()
+            val count = rest.takeWhile { it == num }.count()
+            rest = rest.subList(count, rest.size)
+            append(count)
+            append(num)
+        }
+    }
+}
 
 private fun part(input: String, n: Int) = generateSequence(input) { lookAndSay(it) }
     .drop(n).first().length
