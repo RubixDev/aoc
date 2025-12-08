@@ -4,8 +4,10 @@ plugins {
 rootProject.name = "aoc"
 
 include("kotlin-shared")
-val projects = listOf("2015", "2024", "2025")
+include("scala-shared")
+val projects = listOf("2015/kotlin", "2024/kotlin", "2025/kotlin", "2025/scala")
 for (project in projects) {
-    include(project)
-    project(":$project").projectDir = file("$project/kotlin")
+    val projectName = project.replace('/', '-')
+    include(projectName)
+    project(":$projectName").projectDir = file(project)
 }

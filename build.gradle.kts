@@ -2,12 +2,13 @@ import com.diffplug.gradle.spotless.BaseKotlinExtension
 
 plugins {
     kotlin("jvm") version "2.0.21"
+    id("scala")
     application
     id("com.diffplug.spotless") version "8.1.0"
 }
 
 tasks.register("runAll") {
-    dependsOn.addAll(subprojects.filter { it.name != "kotlin-shared" }.map { it.tasks["run"] })
+    dependsOn.addAll(subprojects.filter { "shared" !in it.name }.map { it.tasks["run"] })
 }
 
 allprojects {
@@ -20,21 +21,8 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "application")
     apply(plugin = "com.diffplug.spotless")
-
-    application {
-        mainClass = "de.rubixdev.aoc.MainKt"
-    }
-
-    dependencies {
-        testImplementation(kotlin("test"))
-    }
-
-    kotlin {
-        jvmToolchain(21)
-    }
 
     spotless {
         fun BaseKotlinExtension.customKtlint() = ktlint("1.8.0").editorConfigOverride(
@@ -54,11 +42,52 @@ subprojects {
                 ),
             )
         }
+        scala {
+            scalafmt("3.10.2").configFile(rootDir.resolve(".scalafmt.conf"))
+        }
     }
 }
 
-configure(subprojects.filter { it.name != "kotlin-shared" }) {
+configure(subprojects.filter { "kotlin" in it.name }) {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+
+    dependencies {
+        testImplementation(kotlin("test"))
+    }
+
+    kotlin {
+        jvmToolchain(21)
+    }
+}
+
+configure(subprojects.filter { "kotlin" in it.name && it.name != "kotlin-shared" }) {
+    application {
+        mainClass = "de.rubixdev.aoc.MainKt"
+    }
+
     dependencies {
         implementation(project(":kotlin-shared"))
+    }
+}
+
+configure(subprojects.filter { "scala" in it.name } + rootProject) {
+    apply(plugin = "scala")
+
+    scala {
+        scalaVersion = "3.7.4"
+    }
+
+    dependencies {
+        implementation("org.scala-lang:scala3-library_3:${scala.scalaVersion}")
+    }
+}
+
+configure(subprojects.filter { "scala" in it.name && it.name != "scala-shared" }) {
+    application {
+        mainClass = "de.rubixdev.aoc.main"
+    }
+
+    dependencies {
+        implementation(project(":scala-shared"))
     }
 }
