@@ -49,17 +49,10 @@ private fun List<Vec3>.sortedWithDistances() = asSequence()
     .sortedBy { it.third }
 
 private fun List<Set<Vec3>>.connect(a: Vec3, b: Vec3): List<Set<Vec3>> {
-    val circuitAIdx = indexOfFirst { a in it }
-    val circuitBIdx = indexOfFirst { b in it }
-    return if (circuitAIdx == circuitBIdx) {
-        this
-    } else {
-        asSequence()
-            .withIndex()
-            .filter { it.index !in listOf(circuitAIdx, circuitBIdx) }
-            .map { it.value }
-            .plusElement(get(circuitAIdx) + get(circuitBIdx))
-            .toList()
+    val aAndB = filter { a in it || b in it }
+    return when (aAndB.size) {
+        1 -> this
+        else -> filter { it !in aAndB }.plusElement(aAndB.reduce { union, set -> union + set })
     }
 }
 
