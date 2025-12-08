@@ -13,7 +13,11 @@ import scala.collection.immutable.VectorMap
 import scala.concurrent.duration.{Duration, FiniteDuration}
 import scala.util.chaining.*
 
-type Days = Map[String => Unit, Int]
+trait Day {
+  def run(rawInput: String): Unit
+}
+
+type Days = Map[Day, Int]
 
 private def measureTime[R](block: => R): (R, FiniteDuration) = {
   val start = System.nanoTime()
@@ -28,7 +32,7 @@ def runDays(days: Days, year: Int): Unit = {
       val total = measureTime {
         val (input, timeInput) = measureTime { getInput(year, n) }
         println(s"--- Day $n ---")
-        day(input)
+        day.run(input)
         println(s"\u001b[90mReading Input ${timeInput.pretty}\u001b[0m")
       }
       println(s"\u001b[90mTotal         ${total._2.pretty}\u001b[0m\n")

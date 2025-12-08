@@ -1,7 +1,10 @@
 package de.rubixdev.aoc
 
-private val DAYS: Days = Map(
-  day1 -> 1,
+import scala.collection.immutable.VectorMap
+
+private val DAYS: Days = VectorMap(
+  Day01 -> 1,
+  Day02 -> 2,
 )
 
 @main
