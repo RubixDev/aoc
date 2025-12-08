@@ -28,7 +28,7 @@ fun day8(input: String): Day = sequence {
         .values
         .map { l -> l.map { it.second } }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input, bounds))
     yield(part2(input, bounds))
 }

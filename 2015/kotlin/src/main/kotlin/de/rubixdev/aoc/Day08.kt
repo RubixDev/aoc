@@ -10,7 +10,7 @@ fun day8(input: String): Day = sequence {
 //    val input = example.lines()
     val input = input.lines()
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

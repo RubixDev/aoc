@@ -12,7 +12,7 @@ fun day9(input: String): Day = sequence {
         .map { line -> regex.matchEntire(line)!!.groupValues }
         .associate { (_, from, to, weight) -> (from to to) to weight.toInt() }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

@@ -8,7 +8,7 @@ fun day1(input: String): Day = sequence {
         .unzip()
         .map { it.sorted() }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

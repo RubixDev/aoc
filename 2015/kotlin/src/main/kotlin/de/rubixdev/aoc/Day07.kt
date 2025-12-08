@@ -64,7 +64,7 @@ fun day7(input: String): Day = sequence {
             src to dest
         }
 
-    yield(Unit)
+    yield(null)
     val a = part1(input).also { yield(it) }
     yield(part2(input, a))
 }

@@ -34,7 +34,7 @@ fun day7(input: String): Day = sequence {
             }
         }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input, startPos))
     yield(part2(input, startPos))
 }

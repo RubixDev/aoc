@@ -27,7 +27,7 @@ fun day13(input: String): Day = sequence {
             }.toTriple()
         }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

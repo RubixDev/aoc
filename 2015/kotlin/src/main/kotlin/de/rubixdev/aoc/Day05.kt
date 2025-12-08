@@ -3,7 +3,7 @@ package de.rubixdev.aoc
 fun day5(input: String): Day = sequence {
     val input = input.lines()
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

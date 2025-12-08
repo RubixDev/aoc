@@ -18,7 +18,7 @@ fun day19(input: String): Day = sequence {
     val towels = rawTowels.split(", ")
     val patterns = rawPatterns.lines()
 
-    yield(Unit)
+    yield(null)
     yield(part1(towels, patterns))
     yield(part2(towels, patterns))
 }

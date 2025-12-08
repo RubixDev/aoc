@@ -7,7 +7,7 @@ fun day11(input: String): Day = sequence {
         .split(' ')
         .map { it.toLong() }
 
-    yield(Unit)
+    yield(null)
     yield(part(input, 25))
     yield(part(input, 75))
 }

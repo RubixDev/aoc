@@ -9,20 +9,19 @@ import java.net.http.HttpResponse.BodyHandlers
 import kotlin.io.path.createParentDirectories
 import kotlin.time.measureTime
 
-typealias Day = Sequence<Any>
+typealias Day = Sequence<Any?>
 typealias Days = Map<(String) -> Day, Int>
 
 fun runDays(days: Days, year: Int) {
     val total =
         measureTime {
             for ((day, n) in days.entries) {
-                println("--- Day $n ---")
                 val total =
                     measureTime {
                         val input: String
                         val timeInput = measureTime { input = getInput(year, n) }
                         val iter = day(input).iterator()
-                        val timeParse = measureTime { iter.next() }
+                        val timeParse = measureTime { println("--- Day ${iter.next() ?: n} ---") }
                         val timePart1 = measureTime { println("Part 1: ${iter.next()}") }
                         val timePart2 = measureTime { println("Part 2: ${iter.next()}") }
                         println("\u001b[90mReading Input $timeInput\u001b[0m")

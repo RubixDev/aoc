@@ -5,7 +5,7 @@ fun day2(input: String): Day = sequence {
     val input = input.lines()
         .map { line -> line.split('x').toTriple().map { it.toInt() } }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

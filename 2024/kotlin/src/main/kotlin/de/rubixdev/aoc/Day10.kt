@@ -13,7 +13,7 @@ fun day10(input: String): Day = sequence {
     val input = input.lines()
         .map { line -> line.map { it.digitToInt() } }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

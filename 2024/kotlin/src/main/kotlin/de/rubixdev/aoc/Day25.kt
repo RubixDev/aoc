@@ -49,7 +49,7 @@ fun day25(input: String): Day = sequence {
     val keys = input.filter { schem -> schem.lines().first() == "....." }
         .map { schem -> (0..4).map { schem.lines().drop(1).count { line -> line[it] == '#' } - 1 } }
 
-    yield(Unit)
+    yield(null)
     yield(part1(locks, keys))
     yield("Chronicle Delivered :)")
 }

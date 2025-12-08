@@ -1,7 +1,7 @@
 package de.rubixdev.aoc
 
 fun day10(input: String): Day = sequence {
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

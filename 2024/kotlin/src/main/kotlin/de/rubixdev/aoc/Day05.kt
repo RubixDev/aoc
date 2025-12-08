@@ -8,7 +8,7 @@ fun day5(input: String): Day = sequence {
     val updates = rawUpdates.split("\n").filter { it.isNotBlank() }
         .map { line -> line.split(",").map { it.toInt() } }
 
-    yield(Unit)
+    yield(null)
     yield(part1(rules, updates))
     yield(part2(rules, updates))
 }

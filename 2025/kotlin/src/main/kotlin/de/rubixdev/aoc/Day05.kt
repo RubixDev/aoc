@@ -23,7 +23,7 @@ fun day5(input: String): Day = sequence {
     }
     val inv = rawInv.lines().map { it.toLong() }
 
-    yield(Unit)
+    yield(null)
     yield(part1(ranges, inv))
     yield(part2(ranges))
 }

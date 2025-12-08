@@ -33,7 +33,7 @@ fun day6(input: String): Day = sequence {
             }
         }
 
-    yield(Unit)
+    yield(null)
     val visited = part1(map, guard.copy())
     yield(visited.size)
     yield(part2(map, guard, visited))

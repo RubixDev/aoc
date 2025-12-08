@@ -10,7 +10,7 @@ fun day2(input: String): Day = sequence {
         .map { range -> range.split('-').map { it.toLong() }.toPair() }
         .map { (start, end) -> start..end }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

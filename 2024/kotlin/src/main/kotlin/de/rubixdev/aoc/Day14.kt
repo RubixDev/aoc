@@ -23,7 +23,7 @@ fun day14(input: String): Day = sequence {
             (px by py) to (vx by vy)
         }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

@@ -42,7 +42,7 @@ fun day23(input: String): Day = sequence {
         .distinct()
         .groupBy({ it.first }, { it.second })
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

@@ -62,7 +62,7 @@ fun day24(input: String): Day = sequence {
                 calc.split(' ').let { (a, op, b) -> op to setOf(a, b) }
         }
 
-    yield(Unit)
+    yield(null)
     yield(part1(inputs, gates))
     yield(part2(inputs, gates))
 }

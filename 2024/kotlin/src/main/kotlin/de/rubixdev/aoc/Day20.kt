@@ -17,7 +17,7 @@ fun day20(input: String): Day = sequence {
             }
         }
 
-    yield(Unit)
+    yield(null)
     val distances = findPath(input, startPos, endPos)
     yield(part1(input, distances))
     yield(part2(input, distances))

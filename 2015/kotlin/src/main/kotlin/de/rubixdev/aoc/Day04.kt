@@ -3,7 +3,7 @@ package de.rubixdev.aoc
 import java.security.MessageDigest
 
 fun day4(input: String): Day = sequence {
-    yield(Unit)
+    yield(null)
     val part1 = part(input, 5)
     yield(part1)
     yield(part(input, 6, part1))

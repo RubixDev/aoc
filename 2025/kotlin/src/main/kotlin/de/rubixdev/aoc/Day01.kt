@@ -7,7 +7,7 @@ fun day1(input: String): Day = sequence {
     val input = input.lines()
         .map { line -> line.replace("R", "").replace('L', '-').toInt() }
 
-    yield(Unit)
+    yield(null)
     yield(part1(input))
     yield(part2(input))
 }

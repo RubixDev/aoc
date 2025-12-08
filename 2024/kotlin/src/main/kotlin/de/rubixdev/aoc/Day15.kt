@@ -54,7 +54,7 @@ v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^
     }
     val movements = rawMovements.mapNotNull { it.toDirection() }
 
-    yield(Unit)
+    yield(null)
     yield(part1(map, movements))
     yield(part2(map, movements))
 }
