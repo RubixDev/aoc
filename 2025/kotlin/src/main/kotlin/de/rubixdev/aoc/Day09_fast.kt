@@ -108,7 +108,7 @@ private fun part2(input: List<Vec2>): Long {
     // transform the coords to do the calculation for y using `boundsAtX`
     val maxY = input.maxOf { it.y }
     val rotatedEdges = edges.map { edge -> edge.map { p -> p.mapY { it - maxY }.rotateRight() } }
-    val includedXs = (0..input.maxOf { it.y }).map { boundsAtX(maxY - it, rotatedEdges) }
+    val includedXs = (0..maxY).map { boundsAtX(maxY - it, rotatedEdges) }
 
     return input.asSequence()
         .withIndex()
