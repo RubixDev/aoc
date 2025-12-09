@@ -4,7 +4,7 @@ import scala.util.matching.Regex
 
 object Day02 extends Day {
   override def run(rawInput: String): Unit = {
-    val input = rawInput
+    val input = rawInput.trim
       .split(',')
       .map(_.split('-').map(_.toLong))
       .map { nums => nums(0) to nums(1) }

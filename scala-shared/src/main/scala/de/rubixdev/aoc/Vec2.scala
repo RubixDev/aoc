@@ -29,28 +29,28 @@ end Direction
 
 extension (dir: Direction) {
   def vec: Vec2 = dir match {
-    case Direction.Up => 0 by -1
-    case Direction.Down => 0 by 1
-    case Direction.Left => -1 by 0
+    case Direction.Up    => 0 by -1
+    case Direction.Down  => 0 by 1
+    case Direction.Left  => -1 by 0
     case Direction.Right => 1 by 0
   }
 
   def isHorizontal: Boolean = dir match {
-    case Direction.Up | Direction.Down => false
+    case Direction.Up | Direction.Down    => false
     case Direction.Left | Direction.Right => true
   }
 
   def rotateLeft: Direction = dir match {
-    case Direction.Up => Direction.Left
-    case Direction.Down => Direction.Right
-    case Direction.Left => Direction.Down
+    case Direction.Up    => Direction.Left
+    case Direction.Down  => Direction.Right
+    case Direction.Left  => Direction.Down
     case Direction.Right => Direction.Up
   }
 
   def rotateRight: Direction = dir match {
-    case Direction.Up => Direction.Right
-    case Direction.Down => Direction.Left
-    case Direction.Left => Direction.Up
+    case Direction.Up    => Direction.Right
+    case Direction.Down  => Direction.Left
+    case Direction.Left  => Direction.Up
     case Direction.Right => Direction.Down
   }
 }
@@ -62,7 +62,8 @@ val ADJACENT = Direction.values.map(_.vec) ++ List(
   Direction.Down.vec + Direction.Right.vec,
 )
 
-extension[T] (map: Seq[Seq[T]]) {
+extension [T](map: Seq[Seq[T]]) {
   def apply(index: Vec2): T = map(index.y.toInt)(index.x.toInt)
-  def lift2d(index: Vec2): Option[T] = map.lift(index.y.toInt).flatMap(_.lift(index.x.toInt))
+  def lift2d(index: Vec2): Option[T] =
+    map.lift(index.y.toInt).flatMap(_.lift(index.x.toInt))
 }

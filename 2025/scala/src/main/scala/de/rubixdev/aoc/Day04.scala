@@ -10,13 +10,19 @@ object Day04 extends Day {
     println("Part 2: " + part2(input))
   }
 
+  private def shouldRemove(
+      map: Seq[Seq[Boolean]],
+      tile: Boolean,
+      x: Int,
+      y: Int,
+  ): Boolean =
+    tile && ADJACENT
+      .flatMap { offset => map.lift2d((x by y) + offset) }
+      .count(identity) < 4
+
   private def part1(input: List[Seq[Boolean]]) = input.view.zipWithIndex.map {
     (line, y) =>
-      line.zipWithIndex.count { (tile, x) =>
-        tile && ADJACENT
-          .flatMap { offset => input.lift2d((x by y) + offset) }
-          .count(identity) < 4
-      }
+      line.zipWithIndex.count { (tile, x) => shouldRemove(input, tile, x, y) }
   }.sum
 
   private def part2(input: List[Seq[Boolean]]) =
@@ -31,11 +37,7 @@ object Day04 extends Day {
     .map { (line, y) =>
       line.view.zipWithIndex
         .map { (tile, x) =>
-          if (
-            tile && ADJACENT
-              .flatMap { offset => map.lift2d((x by y) + offset) }
-              .count(identity) < 4
-          ) 1 -> false
+          if (shouldRemove(map, tile, x, y)) 1 -> false
           else 0 -> tile
         }
         .foldLeftFirst(0)(_ + _)
