@@ -1,6 +1,8 @@
 package de.rubixdev.aoc
 
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 fun List<Int>.toVec2(): Vec2 = this[0] by this[1]
 
@@ -28,7 +30,15 @@ data class Vec2(val x: Long, val y: Long) {
     fun isInBounds(size: Vec2) = x in 0..size.x && y in 0..size.y
 
     fun reduce() = gcd(x, y).let { (x / it) by (y / it) }
+
+    fun abs() = abs(x) by abs(y)
+
+    fun area() = x * y
 }
+
+operator fun Pair<Vec2, Vec2>.contains(vec: Vec2) =
+    vec.x in min(first.x, second.x)..max(first.x, second.x) &&
+        vec.y in min(first.y, second.y)..max(first.y, second.y)
 
 operator fun Long.times(vec: Vec2) = vec * this
 
