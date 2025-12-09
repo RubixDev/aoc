@@ -10,19 +10,13 @@ data class Vec2(val x: Long, val y: Long) {
     constructor(v: Long) : this(v, v)
 
     operator fun plus(other: Vec2) = x + other.x by y + other.y
-
     operator fun minus(other: Vec2) = x - other.x by y - other.y
-
-    operator fun times(scalar: Long) = x * scalar by y * scalar
-
-    operator fun times(scalar: Int) = x * scalar by y * scalar
-
-    operator fun div(scalar: Long) = x / scalar by y / scalar
-
-    operator fun div(scalar: Int) = x / scalar by y / scalar
+    operator fun times(scalar: Long) = map { it * scalar }
+    operator fun times(scalar: Int) = map { it * scalar }
+    operator fun div(scalar: Long) = map { it / scalar }
+    operator fun div(scalar: Int) = map { it / scalar }
 
     operator fun rem(other: Vec2) = x % other.x by y % other.y
-
     infix fun mod(other: Vec2) = x.mod(other.x) by y.mod(other.y)
 
     fun isInBounds(map: Collection<Collection<*>>) = x in map.first().indices && y in map.indices
@@ -34,6 +28,12 @@ data class Vec2(val x: Long, val y: Long) {
     fun abs() = abs(x) by abs(y)
 
     fun area() = x * y
+
+    fun rotateRight() = -y by x
+
+    inline fun map(mapper: (Long) -> Long) = mapper(x) by mapper(y)
+    inline fun mapX(mapper: (Long) -> Long) = mapper(x) by y
+    inline fun mapY(mapper: (Long) -> Long) = x by mapper(y)
 }
 
 operator fun Pair<Vec2, Vec2>.contains(vec: Vec2) =
