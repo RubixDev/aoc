@@ -6,3 +6,6 @@ fun Int.toBoolean() = this != 0
 
 infix fun UShort.shl(other: UShort) = toUInt().shl(other.toInt()).toUShort()
 infix fun UShort.shr(other: UShort) = toUInt().shr(other.toInt()).toUShort()
+
+val Long.big get() = toBigInteger()
+val Int.big get() = toBigInteger()
