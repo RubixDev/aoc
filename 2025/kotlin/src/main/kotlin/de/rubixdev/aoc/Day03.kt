@@ -23,6 +23,21 @@ private fun part1(input: List<List<Int>>) = input.sumOf { line ->
 }
 
 private fun part2(input: List<List<Int>>) = input.sumOf { line ->
+    fun findMax(search: List<Int>, result: List<Int> = listOf()): Long = when (result.size) {
+        12 -> result.fold(0L) { acc, d -> acc * 10 + d }
+
+        else -> search.dropLast(11 - result.size).withIndex().maxBy { it.value }.let {
+            findMax(search.drop(it.index + 1), result + it.value)
+        }
+    }
+    findMax(line)
+}
+
+/**
+ * My original solution to part 2, which I've not seen anywhere else yet, but
+ * also isn't very pretty.
+ */
+private fun part2Old(input: List<List<Int>>) = input.sumOf { line ->
     val num = MutableList<Int?>(line.size) { null }
     var count = 0
     outer@for (n in 9 downTo 0) {
