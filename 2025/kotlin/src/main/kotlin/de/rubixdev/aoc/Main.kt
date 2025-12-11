@@ -14,7 +14,7 @@ private val DAYS: Days =
 //        ::day9 to 9,
         ::day9Fast to 9,
         ::day10 to 10,
-//        ::day11 to 11,
+        ::day11 to 11,
 //        ::day12 to 12,
     )
 
