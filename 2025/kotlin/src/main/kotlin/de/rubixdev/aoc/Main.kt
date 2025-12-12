@@ -15,7 +15,7 @@ private val DAYS: Days =
         ::day9Fast to 9,
         ::day10 to 10,
         ::day11 to 11,
-//        ::day12 to 12,
+        ::day12 to 12,
     )
 
 fun main() = runDays(DAYS, 2025)
