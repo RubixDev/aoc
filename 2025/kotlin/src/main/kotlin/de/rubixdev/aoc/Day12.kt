@@ -37,12 +37,13 @@ fun day12(input: String): Day = sequence {
         12x5: 1 0 1 0 3 2
     """.trimIndent()
 //    val presents = example.split("\n\n")
-//        .dropLast(1)
-//        .map { present ->
-//            present.lines().drop(1).map { line ->
-//                line.map { it == '#' }
-//            }
-//        }
+    val presents = input.split("\n\n")
+        .dropLast(1)
+        .map { present ->
+            present.lines().drop(1).map { line ->
+                line.map { it == '#' }
+            }
+        }
 //    val regions = example.split("\n\n")
     val regions = input.split("\n\n")
         .last()
@@ -54,17 +55,10 @@ fun day12(input: String): Day = sequence {
         }
 
     yield(null)
-    yield(part1Cheese(regions))
+    yield(part1(presents, regions))
     yield("North Pole decorated :)")
 }
 
-// stoopid cheesy solution, which annoyingly works for the input, but not the
-// example, because it's not actually a solution to the problem
-private fun part1Cheese(regions: List<Pair<Vec2, List<Int>>>) = regions.count {
-    it.first.area() >= it.second.sum() * 9
-}
-
-// actual brute force solution using bitmasks, which is way too slow for inputs but works for the example
 private fun part1(presents: List<List<List<Boolean>>>, regions: List<Pair<Vec2, List<Int>>>): Int {
     fun List<Boolean>.bitmask(): ULong = fold(0.toULong()) { bits, bit ->
         (bits shl 1) or bit.toLong().toULong()
@@ -112,10 +106,19 @@ private fun part1(presents: List<List<List<Boolean>>>, regions: List<Pair<Vec2, 
                 canFitAll(map.addPresent(present, pos), restPresents.dropLast(1))
             }
 
-        canFitAll(
-            // y lines with x 0s ("free spaces") at the end
-            (0..<region.first.y).map { ULong.MAX_VALUE shl region.first.x.toInt() },
-            region.second.flatMapIndexed { idx, count -> listOf(idx).repeat(count) },
-        )
+        val triviallyFits = region.first.map { it / 3 }.area() >= region.second.sum()
+        val totalPresentArea = region.second.withIndex()
+            .sumOf { (idx, count) -> presents[idx].flatten().count { it } * count }
+
+        // the puzzle input never actually requires the brute-force search, or
+        // else it wouldn't complete quickly enough
+        triviallyFits || (
+            totalPresentArea <= region.first.area() &&
+                canFitAll(
+                    // y lines with x 0s ("free spaces") at the end
+                    (0..<region.first.y).map { ULong.MAX_VALUE shl region.first.x.toInt() },
+                    region.second.flatMapIndexed { idx, count -> listOf(idx).repeat(count) },
+                )
+            )
     }
 }
