@@ -5,11 +5,11 @@ import hm.binkley.math.isPositive
 import hm.binkley.math.isZero
 import hm.binkley.math.fixed.FixedBigRational as Ratio
 
-private typealias Lights = List<Boolean>
-private typealias Button = List<Int>
-private typealias Joltage = List<Int>
-private typealias Machine = Triple<Lights, List<Button>, Joltage>
-private typealias Input = List<Machine>
+typealias Lights = List<Boolean>
+typealias Button = List<Int>
+typealias Joltage = List<Int>
+typealias Machine = Triple<Lights, List<Button>, Joltage>
+typealias Input = List<Machine>
 private typealias Matrix = List<List<Ratio>>
 
 fun day10(input: String): Day = sequence {
