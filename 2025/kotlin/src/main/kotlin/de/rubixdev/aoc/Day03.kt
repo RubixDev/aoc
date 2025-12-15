@@ -23,13 +23,15 @@ private fun part1(input: List<List<Int>>) = input.sumOf { line ->
 }
 
 private fun part2(input: List<List<Int>>) = input.sumOf { line ->
-    fun findMax(search: List<Int>, result: List<Int> = listOf()): Long = when (result.size) {
-        12 -> result.fold(0L) { acc, d -> acc * 10 + d }
+    tailrec fun findMax(search: List<Int>, result: List<Int> = listOf()): Long =
+        when (result.size) {
+            12 -> result.fold(0L) { acc, d -> acc * 10 + d }
 
-        else -> search.dropLast(11 - result.size).withIndex().maxBy { it.value }.let {
-            findMax(search.drop(it.index + 1), result + it.value)
+            else -> {
+                val (i, max) = search.dropLast(11 - result.size).withIndex().maxBy { it.value }
+                findMax(search.drop(i + 1), result + max)
+            }
         }
-    }
     findMax(line)
 }
 
