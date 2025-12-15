@@ -19,7 +19,7 @@ fun day10Smart(input: String): Day = sequence {
             )
         }
 
-    yield(null)
+    yield("10 (using recursive algorithm)")
     yield(part1(input))
     yield(part2(input))
 }
