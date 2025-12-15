@@ -8,6 +8,7 @@ private val DAYS: Days =
         ::day4 to 4,
         ::day5 to 5,
         ::day6 to 6,
+        ::day6Functional to 6,
         ::day7 to 7,
         ::day8 to 8,
         ::day9 to 9,

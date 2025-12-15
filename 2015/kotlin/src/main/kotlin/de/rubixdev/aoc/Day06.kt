@@ -1,6 +1,6 @@
 package de.rubixdev.aoc
 
-private enum class Op {
+enum class Op {
     ON,
     OFF,
     TOGGLE,
